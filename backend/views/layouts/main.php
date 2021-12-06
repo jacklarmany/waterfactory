@@ -42,7 +42,7 @@ AppAsset::register($this);
     <!-- Header Area wrapper Starts -->
     <div id="header-wrap">
         <!-- Navbar Start -->
-        <nav class="navbar navbar-expand-md bg-white fixed-top rounded scrolling-navbar" style="border:2px solid #dddfe2">
+        <nav class="navbar navbar-expand-md bg-white fixed-top p-1 rounded scrolling-navbar" style="border:2px solid #dddfe2">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <!-- <a href="index.php?r=manage/mnf&id=<? //= $_SESSION['factoryid']
@@ -64,7 +64,7 @@ AppAsset::register($this);
                         }
                     } else {
                         $imgurl = Yii::$app->request->baseUrl;
-                        echo "<img src='$imgurl/images/admin.png' style='width: 38px;'>";// . Yii::$app->user->identity->username;
+                        echo "<img src='$imgurl/images/admin.png' style='width: 38px;'>" . Yii::$app->user->identity->username;
                     }
                     ?>
 
