@@ -12,9 +12,9 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'factoryname')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'factoryname')->textInput(['maxlength' => true])->label(Yii::t('app','Factory name')) ?>
 
-    <div class="form-group text-right">
+    <div class="form-group text-center">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 

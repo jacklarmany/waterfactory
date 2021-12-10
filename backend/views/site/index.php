@@ -12,7 +12,7 @@ $this->title = 'My Yii Application';
         <a href="index.php?r=site/index&data=row">show row</a>
     </p>
     <div class="jumbotron text-center bg-transparent">
-        <p><a class="btn btn-lg btn-success" href="index.php?r=factory/create">+ ເພື່ມສາຂາໂຮງງານ</a></p>
+        <p><a class="btn btn-lg shadow-sm rounded btn-success rounded-0" href="index.php?r=factory/create"><img src="<?= Yii::$app->request->baseUrl?>/icons/add-100.png" width="50"> <br>ສ້າງໂຮງງານ</a></p>
     </div>
 
     <div class="body-content">

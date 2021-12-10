@@ -89,8 +89,6 @@ class PrepareforsellController extends Controller
                                         echo Yii::$app->session->setFlash('error', 'The Quantity is not enough');
                                     } else {
 
-                                        // $qualityppfs = $model->quality;
-
                                         $model->sellprice = $waterData1['sellprice'];
                                         $model->waterid = $waterid;
                                         $model->factoryid = $_SESSION['factoryid'];
@@ -110,13 +108,13 @@ class PrepareforsellController extends Controller
                                 'waterid' => $waterid,
                             ]);
                         } else {
-                            echo Yii::$app->session->setFlash('error', 'Select the product for sell first');
+                            echo Yii::$app->session->setFlash('error', Yii::t('app', 'Select the product for sell first'));
                             return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=water');
                         }
                     } else {
                         foreach ($checkDataP as $checkDataP1);
                         if ($waterid == $checkDataP1['waterid']) {
-                            echo Yii::$app->session->setFlash('error', 'This item alreay exist, Please select new item for sell');
+                            echo Yii::$app->session->setFlash('error', Yii::t('app', 'This item alreay exist, Please select new item for sell'));
                             return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=water');
                         }
                     }
@@ -165,7 +163,6 @@ class PrepareforsellController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -183,5 +180,17 @@ class PrepareforsellController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+
+
+    /////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+
+    public function actionCalculate($id)
+    {
+        echo $id+100;
+        
     }
 }

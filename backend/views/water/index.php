@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             // echo Html::encode($this->title) 
             ?>
-            
+
             <?php // echo $this->render('_search', ['model' => $searchModel]) 
             ?>
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-6">
         <p class="text-right">
             <span class="rounded-circle">
-                <a href="index.php?r=water/create" class="btn-primary shadow-lg p-4 m-2">
+                <a href="index.php?r=water/create" class="btn-success shadow-lg p-4 m-2">
                     <span class="lni-plus"></span>
                     <?php //= Yii::t('app', 'ສ້າງ') 
                     ?>
@@ -172,8 +172,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <hr>
                         <p class=" text-right">
                             <a href="index.php?r=prepareforsell/create&waterid=<?= $waterData1['id'] ?>#" data-toggle="tooltip" data-placement="top" tilte="<?= Yii::t('app', 'Sell') ?>" class="m-0 card-link btn-sm btn-primary"><span class="fa fa-shopping-basket"></span></a>
-                            <a href="index.php?r=wateradd/create&waterid=<?= $waterData1['id'] ?>#" class="m-0 card-link btn-sm btn-success"><span class="fa fa-plus-circle"></span></a>
-                            <a href="index.php?r=water/view&id=<?= $waterData1['id'] ?>#" class="m-0  card-link btn-sm btn-default border"><span class="fa fa-eye"></span></a>
+                            <a href="index.php?r=wateradd/create&waterid=<?= $waterData1['id'] ?>#" id="btnShowModalAddQuantity" class="m-0 card-link btn-sm btn-success"><span class="fa fa-plus-circle"></span></a>
+                            <a href="index.php?r=water/view&id=<?= $waterData1['id'] ?>#" id="btnshow" class="m-0  card-link btn-sm btn-default border"><span class="fa fa-eye"></span></a>
                             <a href="index.php?r=water/update&id=<?= $waterData1['id'] ?>#" class="m-0  card-link btn-sm btn-info"><span class="fa fa-edit"></span></a>
                             <?php
                             echo Html::a(

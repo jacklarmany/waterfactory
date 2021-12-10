@@ -88,13 +88,21 @@ class CustomerController extends Controller
                 $model = new Customer();
 
                 if ($this->request->isPost) {
-                    if ($model->load($this->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
+                    if ($model->load($this->request->post())) {
+                        $model->factoryid = $_SESSION['factoryid'];
+                        $model->userid = Yii::$app->user->id;
+                        if($model->save()){
+                            echo Yii::$app->session->setFlash('success', Yii::t('app', 'New customer add completed'));
+                            return $this->redirect(['index']);
+                        }
+                        else{
+                            echo 0;
+                        }
                     }
                 } else {
                     $model->loadDefaultValues();
                 }
-                return $this->render('create', [
+                return $this->renderAjax('create', [
                     'model' => $model,
                 ]);
             }

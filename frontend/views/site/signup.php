@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <div class="site-signup p-4 bg-white shadow border ">
+            <div class="site-signup p-4 bg-white shadow border rounded">
                 <h1><?= Html::encode($this->title) ?></h1>
                 <p>Please fill out the following fields to signup:</p>
                 <br>

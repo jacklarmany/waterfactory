@@ -86,8 +86,8 @@ class FactoryController extends Controller
                 if ($model->load($this->request->post())) {
                     $model->userid = Yii::$app->user->id;
                     $model->save();
-
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->goHome();
+                    // return $this->redirect(['index', 'id' => $model->id]);
                 }
             } else {
                 $model->loadDefaultValues();

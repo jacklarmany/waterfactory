@@ -11,6 +11,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -44,10 +45,7 @@ AppAsset::register($this);
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-md bg-white fixed-top p-1 rounded scrolling-navbar" style="border:2px solid #dddfe2">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!-- <a href="index.php?r=manage/mnf&id=<? //= $_SESSION['factoryid']
-                                                        ?>" class="navbar-brand"><img src="/images/logo.png" alt=""> -->
-                <a href="index.php?r=site/#" class="navbar-brand">
+                <a href="index.php?r=site/#" class="navbar-bran" style="font-size: 21px;">
                     <?php
                     if (isset($_SESSION['factoryid'])) {
                         $nfn = Factory::find()->where(['id' => $_SESSION['factoryid']])->all();
@@ -67,46 +65,27 @@ AppAsset::register($this);
                         echo "<img src='$imgurl/images/admin.png' style='width: 38px;'>" . Yii::$app->user->identity->username;
                     }
                     ?>
-
-
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="lni-menu"></i>
-                </button>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="lni-menu"></i></button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto w-100 justify-content-end clearfix">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#hero-area">
-                                Home
+                        <li class="nav-item pl-2">
+                            <a class="nav-link" href="#">
+                                <img src="<?= Yii::$app->request->baseUrl?>/icons/bell25.png" width="25">
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#services">
-                                Services
+                        <li class="nav-item pl-2">
+                            <a class="nav-link" href="<?= Url::to('index.php?r=setting')?>">
+                                <img src="<?= Yii::$app->request->baseUrl?>/icons/setting25.png">
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#team">
-                                Team
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#pricing">
-                                Pricing
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#testimonial">
-                                Testimonial
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="nav-item ">
                             <?php
                             if (Yii::$app->user->isGuest) {
                                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
                             } else {
                                 echo Html::a(
-                                    'logout',
+                                    '<img src="'. Yii::$app->request->baseUrl.'/icons/logout30.png" class="shadow rounded">',
                                     ['/site/logout'],
                                     [
                                         'class' => 'nav-link',
@@ -126,6 +105,7 @@ AppAsset::register($this);
         <!-- Navbar End -->
     </div>
     <br><br>
+
     <div class="main-menu" style="display:<?php if (@$_SESSION['factoryid'] == null) {
                                                 echo "none";
                                             } else {
@@ -169,7 +149,7 @@ AppAsset::register($this);
             <main role="main" class="flex-shrink-0">
                 <div class="container">
                     <br>
-                    <?php echo Breadcrumbs::widget(['class'=>['bg-white'], 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
+                    <?php echo Breadcrumbs::widget(['class' => ['bg-white'], 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
                     <?php echo Alert::widget() ?>
                     <br>
                     <?php echo $content ?>

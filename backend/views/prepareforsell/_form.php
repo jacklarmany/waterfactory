@@ -5,6 +5,8 @@ use yii\helpers\Html;
 use backend\models\Water;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prepareforsell */
@@ -12,88 +14,140 @@ use yii\helpers\ArrayHelper;
 ?>
 
 <div class="container">
-    <section class="shadow rounded p-3">
-        <h1><?= Html::encode($this->title) ?></h1>
-        <div class="row">
-            <?php
-            $waterData = Water::find()->where(['id' => $waterid, 'factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->All();
-            foreach ($waterData as $waterData1);
-            ?>
-            <?php
-            ///////////////////////////////////////////////////////////////////
-            //// WATER IMAGE DETAIL ///////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////
-            ?>
-            <div class="m-4" style="width: 328px;">
-                <div class="bg-white mb-4 shadow-sm" style="border:1px solid #dddfe2">
-                    <img class="card-img-top" src="<?= Yii::$app->request->baseUrl ?>/images/<?= $waterData1['image'] ?>" alt="Card image cap">
-                    <div class="card-body boxhover">
-                        <h5 class="card-title"><?= $waterData1['watername']; ?></h5>
-                        <table width="100%" border="0">
-                            <tr>
-                                <th>ຍັງເຫຼືອ</th>
-                                <td class="text-center"><?= number_format($waterData1['quality']) ?></td>
-                                <td class="text-center"><?= $waterData1['unit'] ?></td>
-                            </tr>
-                            <tr>
-                                <th>ລາຄາຂາຍ</th>
-                                <td class="text-center"><?= number_format($waterData1['sellprice']) ?></td>
-                                <td class="text-center"><?= Yii::t('app', 'Kip') ?></td>
-                            </tr>
-                        </table>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <section class="shadow rounded pr-4 pl-4 pt-2">
+                <p class="col-sm-12 text-right"><a href="<?= Url::to('index.php?r=water')?>"><span class="lni-close text-danger"></span></a></p>
+                <?= Html::encode($this->title) ?>
+                <hr class="border-dark">
+                <div class="row">
+                    <?php
+                    $waterData = Water::find()->where(['id' => $waterid, 'factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->All();
+                    foreach ($waterData as $waterData1);
+                    ?>
+                    <?php
+                    ///////////////////////////////////////////////////////////////////
+                    //// WATER IMAGE DETAIL ///////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////
+                    ?>
+                    <div class="col-md-5">
+                        <div class="bg-white mb-4 shadow-sm" style="border:1px solid #dddfe2">
+                            <img class="card-img-top" src="<?= Yii::$app->request->baseUrl ?>/images/<?= $waterData1['image'] ?>" alt="Card image cap">
+                            <div class="card-body boxhover">
+                                <h5 class="card-title"><?= $waterData1['watername']; ?></h5>
+                                <table width="100%" border="0">
+                                    <tr>
+                                        <th>ຍັງເຫຼືອ</th>
+                                        <td class="text-center"><?= number_format($waterData1['quality']) ?></td>
+                                        <td class="text-center"><?= $waterData1['unit'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>ລາຄາຂາຍ</th>
+                                        <td class="text-center"><?= number_format($waterData1['sellprice']) ?></td>
+                                        <td class="text-center"><?= Yii::t('app', 'Kip') ?></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    ///////////////////////////////////////////////////////////////////
+                    //// FORM PREPARE FOR SELL ////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////
+                    ?>
+                    <div class="col-md-7">
+                        <div class="prepareforsell-form">
+                            <?php $form = ActiveForm::begin(); ?>
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <table width="100%" border="0">
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <?php
+                                                        // echo $form->field($model, "customerid")
+                                                        //     ->dropDownList(
+                                                        //         ArrayHelper::map(Customer::find()->asArray()->all(), "id", "fname"),
+                                                        //         [
+                                                        //             "prompt" => "Select Option",
+                                                        //             "onchange" => "
+                                                        //                 $.post('index.php?r=prepareforsell/calculate&id=" . "' +$(this).val(), function(data){
+                                                        //                     console.log();
+                                                        //                     $('#discounts').val(data);
+                                                        //                 });
+                                                        //             ",
+                                                        //             "style" => "height:43px",
+                                                        //         ]
+                                                        //     )->label(false);
+
+                                                        // Usage with ActiveForm and model
+                                                        echo $form->field($model, 'customerid')->widget(Select2::classname(), [
+                                                            'data' => \yii\helpers\ArrayHelper::map(Customer::find()->all(), 'id', ['fname']),
+                                                            'options' => ['placeholder' => Yii::t('app', 'Select a state ...')],
+                                                            'pluginOptions' => [
+                                                                'allowClear' => true
+                                                            ],
+                                                        ])->label(Yii::t('app', 'Select customer'));
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input size="20" placeholder="<?= Yii::t('app', 'Discount - - - %') ?>" id="discounts" class="form-control mb-3 bg-white" disabled style="height: 33px;">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <?= $form->field($model, 'quality')->textInput(['autofocus' => true, 'type' => 'number', 'placeholder' => Yii::t('app', 'Quantites'), 'style' => 'height:33px'])->label(false) ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <input size="20" id="discounts" class="form-control mb-3 bg-white" disabled style="height: 33px;">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input size="20" id="discounts" class="form-control mb-3 bg-white" disabled style="height: 33px;">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" align="right">
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <hr class="border-dark">
+                                    <div class="form-group text-right">
+                                        <?= Html::submitButton('<span class"fa fa-cart"></span>' . Yii::t('app', 'Add to prepare for sell'), ['class' => 'btn btn-primary', 'style' => 'height:39px;']) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
-            ///////////////////////////////////////////////////////////////////
-            //// FORM PREPARE FOR SELL ////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////
-            ?>
-            <div class="m-4 col-md-7" style="width: 645px;">
-                <div class="prepareforsell-form">
-                    <?php $form = ActiveForm::begin();?>
-                    <table width="100%" border="0">
-                        <tr>
-                            <td colspan="3">
-                                <?php
-                                echo $form->field($model, 'id')
-                                    ->dropDownList(
-                                        ArrayHelper::map(Customer::find()->asArray()->all(), 'id', 'fname'),
-                                        [
-                                            'prompt' => 'Select Option',
-                                            'style' => 'height:43px',
-                                        ]
-                                    )->label(false)
-                                ?>
-                                <?php
-                                //echo $form->field($model, 'id')->dropDownList(['1' => 'Yes', '0' => 'No'], ['prompt' => 'Select Option', 'class' => ' border btn btn-block text-dark rounded text-left bg-white']);
-                                ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="1">
-                                <?= $form->field($model, 'quality')->textInput(['autofocus' => true, 'type' => 'number', 'placeholder' => Yii::t('app','Quantites'), 'style' => 'height:43px'])->label(false) ?>
-                            </td>
-                            <td>ຫົວໜ່ວຍ</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <?php echo $form->field($model, 'discount')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Discount _____ %'),  'style' => 'height:43px'])->label(false) ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" align="right">
-                                <div class="form-group">
-                                    <?= Html::submitButton('<span class"fa fa-cart"></span>' . Yii::t('app', 'Add to prepare for sell'), ['class' => 'btn btn-primary','style' => 'height:45px;']) ?>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <?php ActiveForm::end(); ?>
-                </div>
-            </div>
+            </section>
         </div>
-    </section>
+        <div class="col-sm-1"></div>
+    </div>
     <hr>
     <hr>
     <hr>
@@ -121,7 +175,7 @@ use yii\helpers\ArrayHelper;
                         <th><?= Yii::t('app', 'Discount'); ?></th>
                         <th><?= Yii::t('app', 'Amount discount'); ?></th>
                         <th><?= Yii::t('app', 'Amount Receive'); ?></th>
-                        <th><?= Yii::t('app', 'Customer ID'); ?></th>
+                        <th><?= Yii::t('app', 'Customer'); ?></th>
                         <th><?= Yii::t('app', 'Action'); ?></th>
                     </tr>
                     <?php
@@ -141,7 +195,16 @@ use yii\helpers\ArrayHelper;
                             <td><?= number_format($preData1['discount']) ?> %</td>
                             <td><?= number_format($preData1['amountdiscount']) ?></td>
                             <td><?= number_format($preData1['amount'] - $preData1['amountdiscount']) ?></td>
-                            <td><?= $preData1['customerid'] ?></td>
+                            <td>
+                                <?php if ($preData1['customerid'] == null) {
+                                    echo "----";
+                                } else {
+                                    $customerName = \backend\models\Customer::find()->where(['id' => $preData1['customerid'], 'factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
+                                    foreach ($customerName as $customerNames);
+                                    echo $customerNames['fname'] . " " . $customerNames['lname'];
+                                }
+                                ?>
+                            </td>
                             <td class="text-center">
                                 <a href="index.php?r=prepareforsell/update&id=<?= $preData1['id'] ?>" class="p-1 bg-info rounded text-white">Edit</a>
                                 <?php
@@ -169,7 +232,7 @@ use yii\helpers\ArrayHelper;
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" >
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content" style="border: 1px solid #999; box-shadow: 2px 50px 100px #fff">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>

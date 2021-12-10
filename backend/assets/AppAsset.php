@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'custom/fonts/line-icons.css',
     ];
     public $js = [
+        'custom/js/customjs.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

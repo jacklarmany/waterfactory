@@ -74,7 +74,7 @@ if (count($prepareforsellData) <= 0) {
                     <th><?= Yii::t('app', 'Discount'); ?></th>
                     <th><?= Yii::t('app', 'Amount discount'); ?></th>
                     <th><?= Yii::t('app', 'Amount Receive'); ?></th>
-                    <th><?= Yii::t('app', 'Customer ID'); ?></th>
+                    <th><?= Yii::t('app', 'Customer'); ?></th>
                     <th><?= Yii::t('app', 'Action'); ?></th>
                 </tr>
                 <?php
@@ -94,7 +94,16 @@ if (count($prepareforsellData) <= 0) {
                         <td><?= number_format($preData1['discount']) ?> %</td>
                         <td><?= number_format($preData1['amountdiscount']) ?></td>
                         <td><?= number_format($preData1['amount'] - $preData1['amountdiscount']) ?></td>
-                        <td><?= $preData1['customerid'] ?></td>
+                        <td>
+                            <?php if ($preData1['customerid'] == null) {
+                                echo "----";
+                            } else {
+                                $customerName = \backend\models\Customer::find()->where(['id' => $preData1['customerid'], 'factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
+                                foreach ($customerName as $customerNames);
+                                echo $customerNames['fname'] . " " . $customerNames['lname'];
+                            }
+                            ?>
+                        </td>
                         <td class="text-center">
                             <a href="index.php?r=prepareforsell/update&id=<?= $preData1['id'] ?>" class="p-1 bg-info rounded text-white">Edit</a>
                             <?php

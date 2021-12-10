@@ -31,19 +31,23 @@
 }
 
 .main-menu .menu-item1:hover {
-    background-color: #d6d6d6;
+    background-color: #dfdede;
     cursor: pointer;
+    margin-right:3px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    
 }
 
 .main-menu .menu-item1 .fa {
-    color: gray;
+    color: rgb(80, 80, 80);
     /* width: px; */
     font-size: 25px;
     padding: 10px;
 }
 
 .main-menu .menu-item1:hover>.fa {
-    color: #147bf1;
+    color: #1c79e4;
 }
 
 section.home {
