@@ -93,11 +93,15 @@ class WaterController extends Controller
                     if ($model->load($this->request->post())) {
                         $model->userid = Yii::$app->user->id;
                         $model->factoryid = $_SESSION['factoryid'];
-                        $model->save();
-                        
-                        echo Yii::$app->session->setFlash('success', Yii::t('app', '<span class"fa fa-eye"></span> Create Successfully'));
-                        return $this->render('index');
-                        
+
+                        if($model->save()){
+                            echo Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
+                            return $this->render('index');
+                        }
+                        else{
+                            echo "fail";
+                            die();
+                        }
                     }
                 } else {
                     $model->loadDefaultValues();

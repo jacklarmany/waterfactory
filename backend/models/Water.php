@@ -16,7 +16,7 @@ use Yii;
  * @property int $factoryid
  * @property int $userid
  *
- * @property Factory $factory
+ * @property Prepareforsell $prepareforsell
  * @property Wateradd[] $wateradds
  */
 class Water extends \yii\db\ActiveRecord
@@ -40,8 +40,7 @@ class Water extends \yii\db\ActiveRecord
             [['sellprice'], 'number'],
             [['image'], 'string', 'max' => 255],
             [['watername'], 'string', 'max' => 100],
-            [['unit'], 'string', 'max' => 7],
-            [['factoryid'], 'exist', 'skipOnError' => true, 'targetClass' => Factory::className(), 'targetAttribute' => ['factoryid' => 'id']],
+            [['unit'], 'string', 'max' => 10],
         ];
     }
 
@@ -63,13 +62,13 @@ class Water extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Factory]].
+     * Gets query for [[Prepareforsell]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFactory()
+    public function getPrepareforsell()
     {
-        return $this->hasOne(Factory::className(), ['id' => 'factoryid']);
+        return $this->hasOne(Prepareforsell::className(), ['waterid' => 'id']);
     }
 
     /**

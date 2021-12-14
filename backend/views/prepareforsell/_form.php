@@ -18,7 +18,11 @@ use yii\helpers\Url;
         <div class="col-sm-1"></div>
         <div class="col-sm-10">
             <section class="shadow rounded pr-4 pl-4 pt-2">
-                <p class="col-sm-12 text-right"><a href="<?= Url::to('index.php?r=water')?>"><span class="lni-close text-danger"></span></a></p>
+                <p class="col-sm-12 text-right">
+                    <a href="#"><img src="<?= Yii::$app->request->baseUrl?>/icons/substract20.png"></a>
+                    <a href="#"><img src="<?= Yii::$app->request->baseUrl?>/icons/togle-fullscreen20.png" width="20"></a>
+                    <a href="<?= Url::to('index.php?r=water')?>"><img src="<?= Yii::$app->request->baseUrl?>/icons/close20.png"></a>
+                </p>
                 <?= Html::encode($this->title) ?>
                 <hr class="border-dark">
                 <div class="row">
