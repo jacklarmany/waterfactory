@@ -19,6 +19,7 @@ class PostSearch extends Post
         return [
             [['id', 'factoryid', 'userid'], 'integer'],
             [['postname'], 'safe'],
+            [['salary'], 'number'],
         ];
     }
 
@@ -59,6 +60,7 @@ class PostSearch extends Post
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'salary' => $this->salary,
             'factoryid' => $this->factoryid,
             'userid' => $this->userid,
         ]);

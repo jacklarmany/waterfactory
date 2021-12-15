@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Post;
 use backend\models\PostSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,8 +70,12 @@ class PostController extends Controller
         $model = new Post();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->factoryid = $_SESSION['factoryid'];
+                $model->userid = Yii::$app->user->id;
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();

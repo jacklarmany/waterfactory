@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'uname',
             'pword',
+            'status',
             'stuffid',
             'factoryid',
         ],

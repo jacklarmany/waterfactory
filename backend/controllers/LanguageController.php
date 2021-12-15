@@ -9,6 +9,8 @@ class LanguageController extends Controller
 {
     public function actionChange($lang)
     {
+        $session = Yii::$app->session;
+        $session->open();
 
         if($lang == 'en'){
             $_SESSION['lang'] = $lang;

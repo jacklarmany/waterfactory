@@ -51,16 +51,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'id',
+                // 'id',
                 'fname',
                 'lname',
-                'dob',
+                // 'dob',
                 'gender',
-                'cardid',
+                // 'cardid',
                 'tel',
-                'village',
-                'district',
-                'province',
+                // 'village',
+                // 'district',
+                // 'province',
                 //'factoryid',
                 //'userid',
 
@@ -69,7 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
         <?php Pjax::end(); ?>
 
-</div>
 </div>
 
 

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id ລະຫັດ
  * @property string $postname ຊື່ຕຳແໜ່ງ
+ * @property float $salary ເງິນເດືອນ
  * @property int $factoryid ລະຫັດໂຮງງານ
  * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  *
@@ -31,7 +32,8 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['postname', 'factoryid', 'userid'], 'required'],
+            [['postname', 'salary', 'factoryid', 'userid'], 'required'],
+            [['salary'], 'number'],
             [['factoryid', 'userid'], 'integer'],
             [['postname'], 'string', 'max' => 255],
             [['factoryid'], 'exist', 'skipOnError' => true, 'targetClass' => Factory::className(), 'targetAttribute' => ['factoryid' => 'id']],
@@ -46,6 +48,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'postname' => Yii::t('app', 'Postname'),
+            'salary' => Yii::t('app', 'Salary'),
             'factoryid' => Yii::t('app', 'Factoryid'),
             'userid' => Yii::t('app', 'Userid'),
         ];

@@ -34,6 +34,7 @@ class Stuffasuser extends \yii\db\ActiveRecord
             [['uname', 'pword', 'stuffid', 'factoryid'], 'required'],
             [['stuffid', 'factoryid'], 'integer'],
             [['uname', 'pword'], 'string', 'max' => 255],
+            [['stuffid'], 'unique'],
             [['stuffid'], 'exist', 'skipOnError' => true, 'targetClass' => Stuff::className(), 'targetAttribute' => ['stuffid' => 'id']],
         ];
     }
@@ -47,6 +48,7 @@ class Stuffasuser extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'uname' => Yii::t('app', 'Uname'),
             'pword' => Yii::t('app', 'Pword'),
+            'status' => Yii::t('app', 'Status'),
             'stuffid' => Yii::t('app', 'Stuffid'),
             'factoryid' => Yii::t('app', 'Factoryid'),
         ];

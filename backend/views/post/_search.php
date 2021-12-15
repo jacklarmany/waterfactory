@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'postname') ?>
 
+    <?= $form->field($model, 'salary') ?>
+
     <?= $form->field($model, 'factoryid') ?>
 
     <?= $form->field($model, 'userid') ?>

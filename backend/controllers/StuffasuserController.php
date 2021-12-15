@@ -4,10 +4,10 @@ namespace backend\controllers;
 
 use backend\models\Stuffasuser;
 use backend\models\StuffasuserSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 /**
  * StuffasuserController implements the CRUD actions for Stuffasuser model.
  */
@@ -69,8 +69,11 @@ class StuffasuserController extends Controller
         $model = new Stuffasuser();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->factoryid = $_SESSION['factoryid'];
+                if($model->save()){
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();

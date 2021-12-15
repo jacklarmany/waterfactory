@@ -7,16 +7,14 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
     <p class="text-right">
-        <?php echo @$_SESSION['column']; ?>
         <a href="index.php?r=site/index&data=column">show column</a>
         <a href="index.php?r=site/index&data=row">show row</a>
     </p>
     <div class="jumbotron text-center bg-transparent">
-        <p><a class="btn btn-lg shadow-sm rounded btn-success rounded-0" href="index.php?r=factory/create"><img src="<?= Yii::$app->request->baseUrl?>/icons/add-100.png" width="50"> <br>ສ້າງໂຮງງານ</a></p>
+        <p><a class="btn btn-lg shadow-sm rounded btn-success rounded-0" href="index.php?r=factory/create"><img src="<?= Yii::$app->request->baseUrl ?>/icons/add-100.png" width="50"> <br>ສ້າງໂຮງງານ</a></p>
     </div>
 
     <div class="body-content">
-
         <div class="row">
             <?php
             $factoryData = Factory::find()->where(['userid' => Yii::$app->user->id])->all();
