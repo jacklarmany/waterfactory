@@ -5,25 +5,25 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "stuffasuser".
+ * This is the model class for table "salarypaid".
  *
  * @property int $id ລະຫັດ
- * @property string $uname ຊື່ຜູ້ໃຊ້
- * @property string $pword ລະຫັດຜ່ານ
- * @property int $status ສະຖານະ
+ * @property string $date ວັນທີ
+ * @property string $time ເວລາ
+ * @property string $salaryamount ຈຳນວນເງິນເດືອນ
  * @property int $stuffid ລະຫັດພະນັກງານ
  * @property int $factoryid ລະຫັດໂຮງງານ
  *
  * @property Stuff $stuff
  */
-class Stuffasuser extends \yii\db\ActiveRecord
+class Salarypaid extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'stuffasuser';
+        return 'salarypaid';
     }
 
     /**
@@ -32,10 +32,11 @@ class Stuffasuser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uname', 'pword', 'stuffid', 'factoryid'], 'required'],
-            [['status', 'stuffid', 'factoryid'], 'integer'],
-            [['uname', 'pword'], 'string', 'max' => 255],
-            [['stuffid'], 'unique'],
+            [['id', 'date', 'time', 'salaryamount', 'stuffid', 'factoryid'], 'required'],
+            [['id', 'stuffid', 'factoryid'], 'integer'],
+            [['date', 'time'], 'safe'],
+            [['salaryamount'], 'string', 'max' => 255],
+            [['id'], 'unique'],
             [['stuffid'], 'exist', 'skipOnError' => true, 'targetClass' => Stuff::className(), 'targetAttribute' => ['stuffid' => 'id']],
         ];
     }
@@ -47,9 +48,9 @@ class Stuffasuser extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'uname' => Yii::t('app', 'Uname'),
-            'pword' => Yii::t('app', 'Pword'),
-            'status' => Yii::t('app', 'Status'),
+            'date' => Yii::t('app', 'Date'),
+            'time' => Yii::t('app', 'Time'),
+            'salaryamount' => Yii::t('app', 'Salaryamount'),
             'stuffid' => Yii::t('app', 'Stuffid'),
             'factoryid' => Yii::t('app', 'Factoryid'),
         ];

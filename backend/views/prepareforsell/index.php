@@ -62,7 +62,7 @@ if (count($prepareforsellData) <= 0) {
         <p class="text-right mb-2">
             <a href="index.php?r=water" class="btn btn-border video-popup"><span class="lni-list"></span></a>
             <a href="#" class="btn btn-border video-popup" data-toggle="modal" data-target="#exampleModalCenter"><span class="lni-eye"></span></a>
-            <a href="#" class="btn btn-border video-popup"><span class="lni-printer"></span></a>
+            <a href="<?=\yii\helpers\Url::toRoute(['prepareforsell/printbill'])?>" class="btn btn-border video-popup"><span class="lni-printer"></span></a>
         </p>
         <div class="table table-responsive">
             <table class="table table-bordered">

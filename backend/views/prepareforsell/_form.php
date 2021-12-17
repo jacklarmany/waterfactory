@@ -168,7 +168,7 @@ use yii\helpers\Url;
                 <p class="text-right mb-2">
                     <a href="index.php?r=water" class="btn btn-border video-popup"><span class="lni-list"></span></a>
                     <a href="#" class="btn btn-border video-popup" data-toggle="modal" data-target="#exampleModalCenter"><span class="lni-eye"></span></a>
-                    <a href="#" class="btn btn-border video-popup"><span class="lni-printer"></span></a>
+                    <a href="<?=Url::toRoute(['prepareforsell/printbill'])?>" class="btn btn-border video-popup"><span class="lni-printer"></span></a>
                 </p>
                 <table width="100%">
                     <tr>

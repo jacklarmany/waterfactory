@@ -7,13 +7,14 @@ use Yii;
 /**
  * This is the model class for table "wateradd".
  *
- * @property int $id
- * @property string $date
- * @property int $waterid
- * @property int $quality
- * @property string $unit
- * @property int $factoryid
- * @property int|null $userid
+ * @property int $id ລະຫັດ
+ * @property string $date ວັນທີ
+ * @property string $time ເວລາ
+ * @property int $waterid ລະຫັດນໍ້າດື່ມ
+ * @property int $quantity ຈຳນວນ
+ * @property string $unit ຫົວໜ່ວຍ
+ * @property int $factoryid ລະຫັດໂຮງງານ
+ * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  *
  * @property Water $water
  */
@@ -33,9 +34,9 @@ class Wateradd extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'waterid', 'quality', 'unit', 'factoryid'], 'required'],
-            [['date'], 'safe'],
-            [['waterid', 'quality', 'factoryid', 'userid'], 'integer'],
+            [['date', 'time', 'waterid', 'quantity', 'unit', 'factoryid', 'userid'], 'required'],
+            [['date', 'time'], 'safe'],
+            [['waterid', 'quantity', 'factoryid', 'userid'], 'integer'],
             [['unit'], 'string', 'max' => 10],
             [['waterid'], 'exist', 'skipOnError' => true, 'targetClass' => Water::className(), 'targetAttribute' => ['waterid' => 'id']],
         ];
@@ -49,8 +50,9 @@ class Wateradd extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'date' => Yii::t('app', 'Date'),
+            'time' => Yii::t('app', 'Time'),
             'waterid' => Yii::t('app', 'Waterid'),
-            'quality' => Yii::t('app', 'Quality'),
+            'quantity' => Yii::t('app', 'Quantity'),
             'unit' => Yii::t('app', 'Unit'),
             'factoryid' => Yii::t('app', 'Factoryid'),
             'userid' => Yii::t('app', 'Userid'),

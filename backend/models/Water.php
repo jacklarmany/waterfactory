@@ -7,17 +7,20 @@ use Yii;
 /**
  * This is the model class for table "water".
  *
- * @property int $id
- * @property string $image
- * @property string $watername
- * @property string $unit
- * @property int|null $quality
- * @property float $sellprice
- * @property int $factoryid
- * @property int $userid
+ * @property int $id ລະຫັດ
+ * @property string $image ຮູບພາບຂອງນໍ້າ
+ * @property string $watername ຊື່ນໍ້າດື່ມ
+ * @property string $unit ຫົວໜ່ວຍ
+ * @property int|null $avalibledquantity ຈຳນວນນໍ້າທີ່ຍັງເຫຼືອ
+ * @property float $sellprice ລາຄາຂາຍ
+ * @property int $factoryid ລະຫັດໂຮງງານ
+ * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  *
+ * @property Factory $factory
  * @property Prepareforsell $prepareforsell
+ * @property WaterTranslate[] $waterTranslates
  * @property Wateradd[] $wateradds
+ * @property Watersale[] $watersales
  */
 class Water extends \yii\db\ActiveRecord
 {
@@ -36,11 +39,12 @@ class Water extends \yii\db\ActiveRecord
     {
         return [
             [['image', 'watername', 'unit', 'sellprice', 'factoryid', 'userid'], 'required'],
-            [['quality', 'factoryid', 'userid'], 'integer'],
+            [['avalibledquantity', 'factoryid', 'userid'], 'integer'],
             [['sellprice'], 'number'],
             [['image'], 'string', 'max' => 255],
             [['watername'], 'string', 'max' => 100],
             [['unit'], 'string', 'max' => 10],
+            [['factoryid'], 'exist', 'skipOnError' => true, 'targetClass' => Factory::className(), 'targetAttribute' => ['factoryid' => 'id']],
         ];
     }
 
@@ -54,11 +58,21 @@ class Water extends \yii\db\ActiveRecord
             'image' => Yii::t('app', 'Image'),
             'watername' => Yii::t('app', 'Watername'),
             'unit' => Yii::t('app', 'Unit'),
-            'quality' => Yii::t('app', 'Quality'),
+            'avalibledquantity' => Yii::t('app', 'Avalibledquantity'),
             'sellprice' => Yii::t('app', 'Sellprice'),
             'factoryid' => Yii::t('app', 'Factoryid'),
             'userid' => Yii::t('app', 'Userid'),
         ];
+    }
+
+    /**
+     * Gets query for [[Factory]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFactory()
+    {
+        return $this->hasOne(Factory::className(), ['id' => 'factoryid']);
     }
 
     /**
@@ -72,6 +86,16 @@ class Water extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[WaterTranslates]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWaterTranslates()
+    {
+        return $this->hasMany(WaterTranslate::className(), ['waterid' => 'id']);
+    }
+
+    /**
      * Gets query for [[Wateradds]].
      *
      * @return \yii\db\ActiveQuery
@@ -79,5 +103,15 @@ class Water extends \yii\db\ActiveRecord
     public function getWateradds()
     {
         return $this->hasMany(Wateradd::className(), ['waterid' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Watersales]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWatersales()
+    {
+        return $this->hasMany(Watersale::className(), ['waterid' => 'id']);
     }
 }

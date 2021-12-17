@@ -7,18 +7,17 @@ use Yii;
 /**
  * This is the model class for table "customer".
  *
- * @property int $id
- * @property string $fname
- * @property string $lname
- * @property string $dob
- * @property string $gender
- * @property string $cardid
- * @property string $tel
- * @property string $village
- * @property string $district
- * @property string $province
- * @property int|null $factoryid
- * @property int|null $userid
+ * @property int $id ລະຫັດລູກຄ້າ
+ * @property string $fullname ຊື່ ແລະ ນາມສະກຸນ
+ * @property string $dob ວັນ-ເດືອນ-ປີເກີດ
+ * @property string $gender ເພດ
+ * @property string $cardid ເລກບັດປະຈຳໂຕ
+ * @property string $tel ເບີໂທລະສັບ
+ * @property int $village ລະຫັດບ້ານ
+ * @property int $district ລະຫັດເມືອງ
+ * @property int $province ລະຫັດແຂວງ
+ * @property int $factoryid ລະຫັດໂຮງງານ
+ * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  *
  * @property Factory $factory
  */
@@ -38,14 +37,13 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fname', 'lname', 'dob', 'gender', 'cardid', 'tel', 'village', 'district', 'province'], 'required'],
+            [['fullname', 'dob', 'gender', 'cardid', 'tel', 'village', 'district', 'province', 'factoryid', 'userid'], 'required'],
             [['dob'], 'safe'],
-            [['factoryid', 'userid'], 'integer'],
-            [['fname', 'lname'], 'string', 'max' => 50],
+            [['village', 'district', 'province', 'factoryid', 'userid'], 'integer'],
+            [['fullname'], 'string', 'max' => 70],
             [['gender'], 'string', 'max' => 7],
             [['cardid'], 'string', 'max' => 16],
             [['tel'], 'string', 'max' => 14],
-            [['village', 'district', 'province'], 'string', 'max' => 150],
             [['factoryid'], 'exist', 'skipOnError' => true, 'targetClass' => Factory::className(), 'targetAttribute' => ['factoryid' => 'id']],
         ];
     }
@@ -57,8 +55,7 @@ class Customer extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fname' => Yii::t('app', 'Fname'),
-            'lname' => Yii::t('app', 'Lname'),
+            'fullname' => Yii::t('app', 'Fullname'),
             'dob' => Yii::t('app', 'Dob'),
             'gender' => Yii::t('app', 'Gender'),
             'cardid' => Yii::t('app', 'Cardid'),

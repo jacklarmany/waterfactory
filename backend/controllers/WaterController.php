@@ -92,6 +92,8 @@ class WaterController extends Controller
                 if ($this->request->isPost) {
                     if ($model->load($this->request->post())) {
                         $model->userid = Yii::$app->user->id;
+                        $a = 1+1;
+                        $model->image = $model->image ."" .$a ."85620125.jpg";
                         $model->factoryid = $_SESSION['factoryid'];
 
                         if($model->save()){

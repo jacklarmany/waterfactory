@@ -7,16 +7,16 @@ use Yii;
 /**
  * This is the model class for table "prepareforsellview".
  *
- * @property int $id
- * @property int $waterid
- * @property int $quality
- * @property float $sellprice
+ * @property int $id ລະຫັດ
+ * @property int $waterid ລະຫັດນໍ້າດື່ມ
+ * @property int $quality ຈຳນວນ
+ * @property float $sellprice ລາຄາຂາຍ
  * @property float $amount
- * @property float|null $discount
+ * @property float|null $discount ສ່ວນຫຼຸດ
  * @property float|null $amountdiscount
- * @property int|null $customerid
- * @property int $factoryid
- * @property int $userid
+ * @property int|null $customerid ລະຫັດລູກຄ້າ
+ * @property int $factoryid ລະຫັດໂຮງງານ
+ * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  */
 class Prepareforsellview extends \yii\db\ActiveRecord
 {

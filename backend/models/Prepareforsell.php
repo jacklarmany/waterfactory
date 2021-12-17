@@ -7,14 +7,14 @@ use Yii;
 /**
  * This is the model class for table "prepareforsell".
  *
- * @property int $id
- * @property int $waterid
- * @property int $quality
- * @property float $sellprice
- * @property float|null $discount
- * @property int|null $customerid
- * @property int $factoryid
- * @property int $userid
+ * @property int $id ລະຫັດ
+ * @property int $waterid ລະຫັດນໍ້າດື່ມ
+ * @property int $quality ຈຳນວນ
+ * @property float $sellprice ລາຄາຂາຍ
+ * @property float|null $discount ສ່ວນຫຼຸດ
+ * @property int|null $customerid ລະຫັດລູກຄ້າ
+ * @property int $factoryid ລະຫັດໂຮງງານ
+ * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  *
  * @property Water $water
  */
@@ -37,6 +37,7 @@ class Prepareforsell extends \yii\db\ActiveRecord
             [['waterid', 'quality', 'sellprice', 'factoryid', 'userid'], 'required'],
             [['waterid', 'quality', 'customerid', 'factoryid', 'userid'], 'integer'],
             [['sellprice', 'discount'], 'number'],
+            [['waterid'], 'unique'],
             [['waterid'], 'exist', 'skipOnError' => true, 'targetClass' => Water::className(), 'targetAttribute' => ['waterid' => 'id']],
         ];
     }

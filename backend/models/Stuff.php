@@ -17,14 +17,14 @@ use Yii;
  * @property int $district_id ລະຫັດເມືອງ
  * @property int $village_id ລະຫັດບ້ານ
  * @property string|null $paysalary ຈ່າຍເງິນເດືອນ
- * @property int $post_id ລະຫັດຕຳແໜ່ງ
+ * @property int $position_id ລະຫັດຕຳແໜ່ງ
  * @property int $factory_id ລະຫັດໂຮງງານ
  * @property int $userid ລະຫັດເຈົ້າຂອງໂຮງງານ
  *
  * @property Factory $factory
- * @property Post $post
+ * @property Position $position
  * @property Salarypaid[] $salarypas
- * @property Stuffasuser[] $stuffasusers
+ * @property Stuffasuser $stuffasuser
  */
 class Stuff extends \yii\db\ActiveRecord
 {
@@ -42,15 +42,15 @@ class Stuff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fullname', 'gender', 'dob', 'card_id', 'tel', 'province_id', 'district_id', 'village_id', 'post_id', 'factory_id', 'userid'], 'required'],
+            [['fullname', 'gender', 'dob', 'card_id', 'tel', 'province_id', 'district_id', 'village_id', 'position_id', 'factory_id', 'userid'], 'required'],
             [['dob', 'paysalary'], 'safe'],
-            [['province_id', 'district_id', 'village_id', 'post_id', 'factory_id', 'userid'], 'integer'],
+            [['province_id', 'district_id', 'village_id', 'position_id', 'factory_id', 'userid'], 'integer'],
             [['fullname'], 'string', 'max' => 255],
             [['gender'], 'string', 'max' => 6],
             [['card_id'], 'string', 'max' => 16],
             [['tel'], 'string', 'max' => 14],
             [['factory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Factory::className(), 'targetAttribute' => ['factory_id' => 'id']],
-            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'id']],
+            [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
         ];
     }
 
@@ -70,7 +70,7 @@ class Stuff extends \yii\db\ActiveRecord
             'district_id' => Yii::t('app', 'District ID'),
             'village_id' => Yii::t('app', 'Village ID'),
             'paysalary' => Yii::t('app', 'Paysalary'),
-            'post_id' => Yii::t('app', 'Post ID'),
+            'position_id' => Yii::t('app', 'Position ID'),
             'factory_id' => Yii::t('app', 'Factory ID'),
             'userid' => Yii::t('app', 'Userid'),
         ];
@@ -87,13 +87,13 @@ class Stuff extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Post]].
+     * Gets query for [[Position]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPost()
+    public function getPosition()
     {
-        return $this->hasOne(Post::className(), ['id' => 'post_id']);
+        return $this->hasOne(Position::className(), ['id' => 'position_id']);
     }
 
     /**
@@ -107,12 +107,12 @@ class Stuff extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Stuffasusers]].
+     * Gets query for [[Stuffasuser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getStuffasusers()
+    public function getStuffasuser()
     {
-        return $this->hasMany(Stuffasuser::className(), ['stuffid' => 'id']);
+        return $this->hasOne(Stuffasuser::className(), ['stuffid' => 'id']);
     }
 }

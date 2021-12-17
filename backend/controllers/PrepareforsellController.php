@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\Prepareforsell;
 use backend\models\PrepareforsellSearch;
 use backend\models\Water;
+use mysqli_result;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -190,7 +191,70 @@ class PrepareforsellController extends Controller
 
     public function actionCalculate($id)
     {
-        echo $id+100;
-        
+        echo $id + 100;
+    }
+
+    public function actionPrintbill()
+    {
+        if (Yii::$app->user->id !== null && isset($_SESSION['factoryid'])) {
+
+            $PrepareData = Prepareforsell::find()->where(['factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
+            // if(is_array($PrepareData)){
+            //     echo "is array";
+            // }
+            // else{
+            //     echo "not array";
+            // }
+            // die();
+
+            // if(count($PrepareData)>1){
+            //     foreach($PrepareData as $newData){
+            //         echo $newData['waterid']." || ";
+            //         echo $newData['quality']." || ";
+            //         echo $newData['sellprice']." || ";
+            //         echo $newData['sellprice']*$newData['quality'];
+            //         echo $newData['discount']." || <br>";
+
+            //     }
+            // }
+
+            $command = Yii::$app->db->createCommand('SELECT * FROM prepareforsellview WHERE factoryid=' . $_SESSION['factoryid'] . ' and userid=' . Yii::$app->user->id);
+            $result = $command->query();
+
+            // if(is_object($result)){
+            //     echo "is object";
+            // }
+            // else{
+            //     echo "not object";
+            // }
+            // die();
+            $t = time();
+            $date = "2021-12-30";
+            $billno = Yii::$app->user->id . "" . $_SESSION['factoryid'] . "-".$t;
+            $userid = Yii::$app->user->id;
+            $factoryid = $_SESSION['factoryid'];
+
+
+            foreach ($result as $commands) {
+                $waterid = $commands['waterid'];
+                $quantity = $commands['quality'];
+                $sellprice = $commands['sellprice'];
+                $amount = $quantity * $sellprice;
+                $discount = $commands['discount'];
+                $amountdisc = $commands['amountdiscount'];
+                $customer = $commands['customerid'];
+
+                ///INSERT DATA OBJECT TO MYSQL
+                $command = Yii::$app->db;
+                $sql = $command->createCommand("INSERT INTO bill(billno,date,waterid,quantity,sellprice,amount,factoryid,userid)VALUES('$billno','$date','$waterid','$quantity','$sellprice','$amount','$factoryid','$userid')");
+                $sql->query();
+
+                if($sql->query()){
+                $this->findModel(['factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->delete();
+                echo "print bill completed";
+                
+                }
+            }
+        }
     }
 }
