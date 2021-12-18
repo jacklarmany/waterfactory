@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     //         'id',
     //         'waterid',
-    //         'quality',
+    //         'avalibledquantity',
     //         'sellprice',
     //         'discount',
     //         'customerid',

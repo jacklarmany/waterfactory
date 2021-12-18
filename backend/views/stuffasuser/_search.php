@@ -24,9 +24,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'pword') ?>
 
+    <?= $form->field($model, 'status') ?>
+
     <?= $form->field($model, 'stuffid') ?>
 
-    <?= $form->field($model, 'factoryid') ?>
+    <?php // echo $form->field($model, 'factoryid') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

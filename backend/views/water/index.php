@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
     //         // 'image',
     //         'watername',
     //         'unit',
-    //         'quality',
+    //         'avalibledquantity',
     //         'sellprice',
     //         //'factoryid',
     //         //'userid',
@@ -160,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <table width="100%" border="0">
                             <tr>
                                 <th>ຍັງເຫຼືອ</th>
-                                <td class="text-center"><?= number_format($waterData1['quality']) ?></td>
+                                <td class="text-center"><?= number_format($waterData1['avalibledquantity']) ?></td>
                                 <td class="text-center"><?= $waterData1['unit'] ?></td>
                             </tr>
                             <tr>

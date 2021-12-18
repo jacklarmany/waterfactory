@@ -3,59 +3,32 @@
 namespace backend\models;
 
 use Yii;
+use \backend\models\base\WaterTranslate as BaseWaterTranslate;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "water_translate".
- *
- * @property int $id
- * @property int|null $language
- * @property string|null $watername
- * @property int|null $waterid
- *
- * @property Water $water
  */
-class WaterTranslate extends \yii\db\ActiveRecord
+class WaterTranslate extends BaseWaterTranslate
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+
+    public function behaviors()
     {
-        return 'water_translate';
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                # custom behaviors
+            ]
+        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
-        return [
-            [['language', 'waterid'], 'integer'],
-            [['watername'], 'string', 'max' => 100],
-            [['waterid'], 'exist', 'skipOnError' => true, 'targetClass' => Water::className(), 'targetAttribute' => ['waterid' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'language' => Yii::t('app', 'Language'),
-            'watername' => Yii::t('app', 'Watername'),
-            'waterid' => Yii::t('app', 'Waterid'),
-        ];
-    }
-
-    /**
-     * Gets query for [[Water]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWater()
-    {
-        return $this->hasOne(Water::className(), ['id' => 'waterid']);
+        return ArrayHelper::merge(
+            parent::rules(),
+            [
+                # custom validation rules
+            ]
+        );
     }
 }

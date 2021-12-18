@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'image',
             'watername',
             'unit',
-            'quality',
+            'avalibledquantity',
             'sellprice',
             'factoryid',
             'userid',

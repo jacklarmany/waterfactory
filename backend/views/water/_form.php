@@ -21,7 +21,7 @@ use yii\bootstrap4\ActiveForm;
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4"><?= $form->field($model, 'quality')->textInput() ?></div>
+        <div class="col-sm-4"><?= $form->field($model, 'avalibledquantity')->textInput() ?></div>
         <div class="col-sm-8"> <?= $form->field($model, 'sellprice')->textInput(['maxlength' => true]) ?></div>
     </div>
     <div class="form-group text-right">

@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'waterid') ?>
 
-    <?= $form->field($model, 'quality') ?>
+    <?= $form->field($model, 'avalibledquantity') ?>
 
     <?= $form->field($model, 'unit') ?>
 

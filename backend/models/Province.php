@@ -3,65 +3,32 @@
 namespace backend\models;
 
 use Yii;
+use \backend\models\base\Province as BaseProvince;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "province".
- *
- * @property int $id
- * @property string $provincename
- *
- * @property District[] $districts
- * @property Village[] $villages
  */
-class Province extends \yii\db\ActiveRecord
+class Province extends BaseProvince
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+
+    public function behaviors()
     {
-        return 'province';
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                # custom behaviors
+            ]
+        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
-        return [
-            [['provincename'], 'required'],
-            [['provincename'], 'string', 'max' => 255],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'provincename' => Yii::t('app', 'Provincename'),
-        ];
-    }
-
-    /**
-     * Gets query for [[Districts]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDistricts()
-    {
-        return $this->hasMany(District::className(), ['province_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Villages]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVillages()
-    {
-        return $this->hasMany(Village::className(), ['province_id' => 'id']);
+        return ArrayHelper::merge(
+            parent::rules(),
+            [
+                # custom validation rules
+            ]
+        );
     }
 }

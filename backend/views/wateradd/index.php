@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             'date',
             'waterid',
-            'quality',
+            'avalibledquantity',
             'unit',
             //'factoryid',
             //'userid',

@@ -20,15 +20,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'fname') ?>
-
-    <?= $form->field($model, 'lname') ?>
+    <?= $form->field($model, 'fullname') ?>
 
     <?= $form->field($model, 'dob') ?>
 
     <?= $form->field($model, 'gender') ?>
 
-    <?php // echo $form->field($model, 'cardid') ?>
+    <?= $form->field($model, 'cardid') ?>
 
     <?php // echo $form->field($model, 'tel') ?>
 

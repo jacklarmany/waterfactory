@@ -43,7 +43,7 @@ use yii\helpers\Url;
                                 <table width="100%" border="0">
                                     <tr>
                                         <th>ຍັງເຫຼືອ</th>
-                                        <td class="text-center"><?= number_format($waterData1['quality']) ?></td>
+                                        <td class="text-center"><?= number_format($waterData1['avalibledquantity']) ?></td>
                                         <td class="text-center"><?= $waterData1['unit'] ?></td>
                                     </tr>
                                     <tr>

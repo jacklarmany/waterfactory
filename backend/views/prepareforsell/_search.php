@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sellprice') ?>
 
-    <?php // echo $form->field($model, 'discount') ?>
+    <?= $form->field($model, 'discount') ?>
 
     <?php // echo $form->field($model, 'customerid') ?>
 

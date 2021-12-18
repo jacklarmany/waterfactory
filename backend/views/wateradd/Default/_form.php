@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'waterid')->textInput() ?>
 
-    <?= $form->field($model, 'quality')->textInput() ?>
+    <?= $form->field($model, 'avalibledquantity')->textInput() ?>
 
     <?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
 

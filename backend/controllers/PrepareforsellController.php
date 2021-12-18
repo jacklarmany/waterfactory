@@ -86,7 +86,7 @@ class PrepareforsellController extends Controller
 
                                     foreach ($waterData as $waterData1);
 
-                                    if ($waterData1['quality'] < $model->quality) {
+                                    if ($waterData1['avalibledquantity'] < $model->quality) {
                                         echo Yii::$app->session->setFlash('error', 'The Quantity is not enough');
                                     } else {
 
@@ -94,6 +94,7 @@ class PrepareforsellController extends Controller
                                         $model->waterid = $waterid;
                                         $model->factoryid = $_SESSION['factoryid'];
                                         $model->userid = Yii::$app->user->id;
+
                                         if ($model->save()) {
                                             echo Yii::$app->session->setFlash('success', Yii::t('app', 'Added in the preparation for sell'));
                                             return $this->render('create', ['model' => $model, 'waterid' => $waterid]);
@@ -120,8 +121,6 @@ class PrepareforsellController extends Controller
                         }
                     }
                 } else {
-                    echo "dd";
-                    die();
                     return $this->redirect('water');
                 }
             } else {
@@ -198,36 +197,9 @@ class PrepareforsellController extends Controller
     {
         if (Yii::$app->user->id !== null && isset($_SESSION['factoryid'])) {
 
-            $PrepareData = Prepareforsell::find()->where(['factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
-            // if(is_array($PrepareData)){
-            //     echo "is array";
-            // }
-            // else{
-            //     echo "not array";
-            // }
-            // die();
-
-            // if(count($PrepareData)>1){
-            //     foreach($PrepareData as $newData){
-            //         echo $newData['waterid']." || ";
-            //         echo $newData['quality']." || ";
-            //         echo $newData['sellprice']." || ";
-            //         echo $newData['sellprice']*$newData['quality'];
-            //         echo $newData['discount']." || <br>";
-
-            //     }
-            // }
-
             $command = Yii::$app->db->createCommand('SELECT * FROM prepareforsellview WHERE factoryid=' . $_SESSION['factoryid'] . ' and userid=' . Yii::$app->user->id);
             $result = $command->query();
 
-            // if(is_object($result)){
-            //     echo "is object";
-            // }
-            // else{
-            //     echo "not object";
-            // }
-            // die();
             $t = time();
             $date = "2021-12-30";
             $billno = Yii::$app->user->id . "" . $_SESSION['factoryid'] . "-".$t;
@@ -244,9 +216,10 @@ class PrepareforsellController extends Controller
                 $amountdisc = $commands['amountdiscount'];
                 $customer = $commands['customerid'];
 
+                ///ຍັງບໍ່ແລ້ວ
                 ///INSERT DATA OBJECT TO MYSQL
                 $command = Yii::$app->db;
-                $sql = $command->createCommand("INSERT INTO bill(billno,date,waterid,quantity,sellprice,amount,factoryid,userid)VALUES('$billno','$date','$waterid','$quantity','$sellprice','$amount','$factoryid','$userid')");
+                $sql = $command->createCommand("INSERT INTO watersale(billno,date,waterid,quantity,sellprice,amount,factoryid,userid)VALUES('$billno','$date','$waterid','$quantity','$sellprice','$amount','$factoryid','$userid')");
                 $sql->query();
 
                 if($sql->query()){
@@ -255,6 +228,9 @@ class PrepareforsellController extends Controller
                 
                 }
             }
+
         }
+
     }
+    
 }

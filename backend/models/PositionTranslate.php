@@ -3,59 +3,32 @@
 namespace backend\models;
 
 use Yii;
+use \backend\models\base\PositionTranslate as BasePositionTranslate;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "position_translate".
- *
- * @property int $id
- * @property int|null $language
- * @property string|null $positionname
- * @property int|null $positionid
- *
- * @property Position $position
  */
-class PositionTranslate extends \yii\db\ActiveRecord
+class PositionTranslate extends BasePositionTranslate
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+
+    public function behaviors()
     {
-        return 'position_translate';
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                # custom behaviors
+            ]
+        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
-        return [
-            [['language', 'positionid'], 'integer'],
-            [['positionname'], 'string', 'max' => 50],
-            [['positionid'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['positionid' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'language' => Yii::t('app', 'Language'),
-            'positionname' => Yii::t('app', 'Positionname'),
-            'positionid' => Yii::t('app', 'Positionid'),
-        ];
-    }
-
-    /**
-     * Gets query for [[Position]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPosition()
-    {
-        return $this->hasOne(Position::className(), ['id' => 'positionid']);
+        return ArrayHelper::merge(
+            parent::rules(),
+            [
+                # custom validation rules
+            ]
+        );
     }
 }

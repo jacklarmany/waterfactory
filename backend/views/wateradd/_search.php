@@ -13,17 +13,22 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'date') ?>
 
+    <?= $form->field($model, 'time') ?>
+
     <?= $form->field($model, 'waterid') ?>
 
-    <?= $form->field($model, 'quality') ?>
+    <?= $form->field($model, 'quantity') ?>
 
-    <?= $form->field($model, 'unit') ?>
+    <?php // echo $form->field($model, 'unit') ?>
 
     <?php // echo $form->field($model, 'factoryid') ?>
 

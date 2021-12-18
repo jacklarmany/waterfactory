@@ -13,9 +13,14 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
+
+    <?= $form->field($model, 'logo') ?>
 
     <?= $form->field($model, 'factoryname') ?>
 

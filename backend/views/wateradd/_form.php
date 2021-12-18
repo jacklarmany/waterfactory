@@ -11,7 +11,7 @@ use yii\bootstrap4\ActiveForm;
 <div class="wateradd-form p-4">
 
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'quality')->textInput() ?>
+    <?= $form->field($model, 'avalibledquantity')->textInput() ?>
     <div class="form-group text-center">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
