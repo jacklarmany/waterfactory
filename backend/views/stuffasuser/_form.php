@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label(Yii::t('app', 'Select customer'));
+    ])->label(Yii::t('app', 'Select staff'));
     ?>
 
     <?= $form->field($model, 'uname')->textInput(['maxlength' => true]) ?>

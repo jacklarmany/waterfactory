@@ -21,7 +21,7 @@ div.required label.control-label:after {
 ");*/
 
 AppAsset::register($this);
-?> 
+?>
 
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -51,7 +51,7 @@ AppAsset::register($this);
     <!-- Header Area wrapper Starts -->
     <div id="header-wrap">
         <!-- Navbar Start -->
-        <nav class="navbar navbar-expand-md bg-white fixed-top p-1 rounded scrolling-navbar" style="border:2px solid #dddfe2">
+        <nav class="navbar navbar-expand-md bg-white fixed-top pl-0 pt-1 pb-1 rounded scrolling-navbar" style="border:2px solid #dddfe2">
             <div class="container-fluid">
                 <a href="index.php?r=site/#" class="navbar-bran" style="font-size: 21px;">
                     <?php
@@ -59,7 +59,9 @@ AppAsset::register($this);
                         $nfn = Factory::find()->where(['id' => $_SESSION['factoryid']])->all();
                         foreach ($nfn as $b);
                         if (@$b['factoryname'] != null) {
-                            echo @$b['factoryname'];
+                            $urlimg = Yii::$app->request->baseUrl;
+                            $logo = $b['logo'];
+                            echo "<img src='$urlimg/logo/$logo' width='45' class='rounded-circle shadow border'> ".@$b['factoryname'];
                         } else {
                             echo "
                             <script>
@@ -78,23 +80,36 @@ AppAsset::register($this);
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto w-100 justify-content-end clearfix">
                         <li class="nav-item pl-2">
-                            <a class="nav-link" href="<?= Url::toRoute(['language/change', 'lang' => 'en']) ?>">
-                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/usa-25.png" width="25">
+                            <a class="nav-link" href="<?= Url::toRoute(['language/change', 'lang' => 'lo']) ?>">
+                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/laos-25.png" width="25" class="shadow-sm rounded-circle">
                             </a>
                         </li>
                         <li class="nav-item pl-2">
-                            <a class="nav-link" href="<?= Url::toRoute(['language/change', 'lang' => 'lo']) ?>">
-                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/laos-25.png" width="25" width="19">
+                            <a class="nav-link" href="<?= Url::toRoute(['language/change', 'lang' => 'en']) ?>">
+                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/usa-25.png" width="25" class="shadow-sm rounded-circle">
                             </a>
                         </li>
                         <li class="nav-item pl-4">
                             <a class="nav-link" href="#">
-                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/bell25.png" width="25">
+                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/bell25.png" width="25" class="shadow-sm">
                             </a>
                         </li>
+                        <?php
+                        if(isset($_SESSION['factoryid'])){
+                        echo "
+                            <li class='nav-item pl-2'>
+                            <a class='nav-link' href='index.php?r=setting'>
+                                <img src='".Yii::$app->request->baseUrl."/images/admin.png' width='26' class='shadow-sm'>
+                            </a>
+                        </li>
+                        ";
+                        }else{
+                            echo"";
+                        }
+                        ?>
                         <li class="nav-item pl-2 pr-3">
-                            <a class="nav-link" href="<?= Url::to('index.php?r=setting') ?>">
-                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/setting25.png">
+                            <a class="nav-link" href="<?= Url::to('index.php?r=admin') ?>">
+                                <img src="<?= Yii::$app->request->baseUrl ?>/icons/setting25.png" class="shadow-sm">
                             </a>
                         </li>
                         <li class="nav-item">
@@ -130,27 +145,56 @@ AppAsset::register($this);
                                                 echo "block";
                                             } ?>">
         <ul>
-            <section class="hme">
-                <li class="menu-item1"><a href="index.php?r=manage/mnf&id=<?= @$_SESSION['factoryid']; ?>#"><i class="fa fa-home"></i>Home</li></a>
-                <li class="menu-item1"><a href="index.php?r=wateradd#"><i class="fa fa-bell"></i>History of added</li></a>
-                <li class="menu-item1"><a href="index.php?r=watersell#"><i class="fa fa-paper-plane"></i>History of sale</li></a>
-                <li class="menu-item1"><a href="index.php?r=water"><i class="fa fa-globe"></i><?= Yii::t('app', 'Warehouse of water')?></li></a>
-                <li class="menu-item1"><a href="index.php?r=stuff"><i class="fa fa-users"></i>Stuff</li></a>
-                <li class="menu-item1"><a href="index.php?r=stuffasuser"><i class="fa fa-user"></i> Stuff as user</li></a>
-            </section>
-            <section class="links">
-                <li class="menu-item1"><a href="index.php?r=customer"><i class="fa fa-gamepad"></i>Customer</li></a>
-                <li class="menu-item1"><i class="fa fa-code"></i>Programming</li>
-                <li class="menu-item1"><i class="fa fa-gears"></i>Technology</li>
-                <li class="menu-item1"><i class="fa fa-hashtag"></i>Mathematics</li>
-                <li class="menu-item1"><i class="fa fa-wrench"></i>Physics</li>
-                <li class="menu-item1"><i class="fa fa-globe"></i>Web Development</li>
-                <li class="menu-item1"><i class="fa fa-android"></i>Android Development</li>
-            </section>
-            <section class="social">
-                <li class="menu-item1"><i class="fa fa-facebook"></i>Facebook</li>
-                <li class="menu-item1"><i class="fa fa-twitter"></i>Twitter</li>
-                <li class="menu-item1"><i class="fa fa-github"></i>Github</li>
+            <section class="linkstext-strong">
+                <li class="menu-item1">
+                    <a href="index.php?r=manage/mnf&id=<?= @$_SESSION['factoryid']; ?>#!">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/dashboard-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'Dashboard') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=checkprintedbill#">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/bill-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'Check Printed Bills') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=wateradd#">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/historyadded-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'History of Added') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=watersale#">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/historysale-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'History of Sale') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=water">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/warehousewater-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'Warehouse of Water') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=stuff">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/staff-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'Stuff') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=stuffasuser">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/stuffasuser-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'Staff as User') ?></b>
+                    </a>
+                </li>
+                <li class="menu-item1">
+                    <a href="index.php?r=customer">
+                        <i class="m-2"><img src="<?= Yii::$app->request->baseUrl ?>/icons/customer-30.png" class="shadow-sm"></i>
+                        <b><?= Yii::t('app', 'Customer Info') ?></b>
+                    </a>
+                </li>
+                
             </section>
         </ul>
     </div>
@@ -181,7 +225,7 @@ AppAsset::register($this);
         <div style="margin-left:0px;">
             <main role="main" class="flex-shrink-0">
                 <div class="container">
-                    <br><br>                    
+                    <br><br>
                     <?= $content ?>
                     <br><br>
                 </div>
@@ -196,15 +240,15 @@ AppAsset::register($this);
     /////////////////////////////////////////////////////////
     ?>
 
-    <!-- <footer class="footer mt-auto py-3 text-muted">
+    <footer class="footer mt-auto py-3 text-muted">
         <div class="container">
-            <p class="float-left">&copy; <? //= Html::encode(Yii::$app->name) 
-                                            ?> <? //= date('Y') 
+            <p class="float-left">&copy; <?= Html::encode(Yii::$app->name)
+                                            ?> <?= date('Y')
                                                 ?></p>
-            <p class="float-right"><? //= Yii::powered() 
+            <p class="float-right"><?= Yii::powered()
                                     ?></p>
         </div>
-    </footer> -->
+    </footer>
 
     <?php $this->endBody() ?>
 </body>

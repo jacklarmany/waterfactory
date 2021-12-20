@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Stuff */
+/* @var $model backend\models\Watersale */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Stuffs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Watersales'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="stuff-view">
+<div class="watersale-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,17 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'fullname',
-            'gender',
-            'dob',
-            'card_id',
-            'tel',
-            'province_id',
-            'district_id',
-            'village_id',
-            'paysalary',
-            'position_id',
-            'factory_id',
+            'date',
+            'time',
+            'waterid',
+            'quantity',
+            'sellprice',
+            'amount',
+            'discount',
+            'amountdiscount',
+            'totalreceiveamount',
+            'customerid',
+            'billno',
+            'stuffasuserid',
+            'factoryid',
             'userid',
         ],
     ]) ?>

@@ -80,21 +80,21 @@ class WateraddController extends Controller
                     $model = new Wateradd();
                     if ($this->request->isPost) {
                         if ($model->load($this->request->post())) {
-                            $model->date = date("Y-m-d H:i:sa");
+                            $model->date = date("Y-m-d");
+                            $model->time = date('H:i:s');
                             $model->waterid = $waterid;
                             $model->unit =  $neddUnitWater1['unit'];
                             $model->factoryid = $_SESSION['factoryid'];
                             $model->userid = Yii::$app->user->id;
                             if ($model->save()) {
-                                $qualityadd =  $model->quality;
+                                $qualityadd =  $model->quantity;
                                 $connection = Yii::$app->db;
-                                $command = $connection->createCommand('UPDATE water SET quality=quality+' . $qualityadd . ' WHERE   id=' . $waterid . ' and factoryid=' . $_SESSION['factoryid']. ' and userid='. Yii::$app->user->id);
+                                $command = $connection->createCommand('UPDATE water SET avalibledquantity=avalibledquantity+' . $qualityadd . ' WHERE   id=' . $waterid . ' and factoryid=' . $_SESSION['factoryid']. ' and userid='. Yii::$app->user->id);
                                 $command->execute();
 
-                                echo Yii::$app->session->setFlash('success', Yii::t('app','Quality has been added'));
+                                echo Yii::$app->session->setFlash('success', Yii::t('app','Quantity has been added'));
                                 return $this->redirect(['/water']);
                             }
-
                             return $this->redirect(['index']);
                         }
                     } else {

@@ -12,9 +12,9 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'logo')->fileInput(['maxlength' => true, 'class' => 'border p-1'])->label(Yii::t('app','Logo')) ?>
-    <?= $form->field($model, 'factoryname')->textInput(['maxlength' => true])->label(Yii::t('app','Factory name')) ?>
-    <?= $form->field($model, 'factoryname_en')->textInput(['maxlength' => true])->label(Yii::t('app','Factory name')) ?>
+    <?= $form->field($model, 'logo')->fileInput(['maxlength' => true])->label(Yii::t('app','Logo')) ?>
+    <?= $form->field($model, 'factoryname')->textInput(['maxlength' => true, 'style' => ['height' => '40px'], 'placeholder' => Yii::t('app','Factory name Lao')])->label(false) ?>
+    <?= $form->field($model, 'factoryname_en')->textInput(['maxlength' => true,'style' => ['height' => '40px'], 'placeholder' => Yii::t('app','Factory name English')])->label(false) ?>
 
     <div class="form-group text-center">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

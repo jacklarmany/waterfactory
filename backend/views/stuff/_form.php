@@ -1,5 +1,6 @@
 <?php
 
+
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -22,19 +23,21 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
 
+    <?php
+    echo $form->field($model, 'position_id')->widget(kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(backend\models\Position::find()->all(), 'id', 'positionname'),
+        'options' => ['placeholder' => Yii::t('app', 'Select a state ...')],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label(Yii::t('app', 'Select Position'));
+    ?>
+
     <?= $form->field($model, 'province_id')->textInput() ?>
 
     <?= $form->field($model, 'district_id')->textInput() ?>
 
     <?= $form->field($model, 'village_id')->textInput() ?>
-
-    <?= $form->field($model, 'paysalary')->textInput() ?>
-
-    <?= $form->field($model, 'post_id')->textInput() ?>
-
-    <?= $form->field($model, 'factory_id')->textInput() ?>
-
-    <?= $form->field($model, 'userid')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

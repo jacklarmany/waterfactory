@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'paysalary') ?>
 
-    <?php // echo $form->field($model, 'post_id') ?>
+    <?php // echo $form->field($model, 'position_id') ?>
 
     <?php // echo $form->field($model, 'factory_id') ?>
 

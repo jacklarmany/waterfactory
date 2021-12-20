@@ -8,6 +8,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * FactoryController implements the CRUD actions for Factory model.
@@ -84,6 +85,13 @@ class FactoryController extends Controller
             $model = new Factory();
             if ($this->request->isPost) {
                 if ($model->load($this->request->post())) {
+
+                 //DO THIS IF SELECTED LOGO
+                 $image = UploadedFile::getInstance($model, 'logo');
+                 $imageName = "LGF-" . rand(000, 999) . time() . '.' . $image->getExtension();
+                 $image->saveAs(\Yii::getAlias('@webroot') . '/logo/' . $imageName);  // here we need to give path where to upload this function work same as move_upload_file in php
+                 $model->logo = $imageName;
+
                     $model->userid = Yii::$app->user->id;
                     $model->save();
                     return $this->goHome();
@@ -112,7 +120,8 @@ class FactoryController extends Controller
     {
         if (Yii::$app->user->id != null) {
             if (isset($id)) {
-                $model = $this->findModel($id);
+                // $model = $this->findModel($id);
+                $model = Factory::find()->multilingual()->where(['id' => $id])->one();
 
                 if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id]);
