@@ -12,7 +12,7 @@ use Yii;
  * @property integer $id
  * @property string $image
  * @property string $watername
- * @property string $unit
+ * @property integer $unitid
  * @property integer $avalibledquantity
  * @property string $sellprice
  * @property integer $factoryid
@@ -20,6 +20,7 @@ use Yii;
  *
  * @property \backend\models\Factory $factory
  * @property \backend\models\Prepareforsell $prepareforsell
+ * @property \backend\models\Unit $unit
  * @property \backend\models\WaterTranslate[] $waterTranslates
  * @property \backend\models\Wateradd[] $wateradds
  * @property \backend\models\Watersale[] $watersales
@@ -44,13 +45,13 @@ abstract class Water extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'watername', 'unit', 'sellprice', 'factoryid', 'userid'], 'required'],
-            [['avalibledquantity', 'factoryid', 'userid'], 'integer'],
+            [['image', 'watername', 'unitid', 'sellprice', 'factoryid', 'userid'], 'required'],
+            [['unitid', 'avalibledquantity', 'factoryid', 'userid'], 'integer'],
             [['sellprice'], 'number'],
             [['image'], 'string', 'max' => 255],
             [['watername'], 'string', 'max' => 100],
-            [['unit'], 'string', 'max' => 10],
-            [['factoryid'], 'exist', 'skipOnError' => true, 'targetClass' => \backend\models\Factory::className(), 'targetAttribute' => ['factoryid' => 'id']]
+            [['factoryid'], 'exist', 'skipOnError' => true, 'targetClass' => \backend\models\Factory::className(), 'targetAttribute' => ['factoryid' => 'id']],
+            [['unitid'], 'exist', 'skipOnError' => true, 'targetClass' => \backend\models\Unit::className(), 'targetAttribute' => ['unitid' => 'id']]
         ];
     }
 
@@ -63,7 +64,7 @@ abstract class Water extends \yii\db\ActiveRecord
             'id' => Yii::t('models', 'ID'),
             'image' => Yii::t('models', 'Image'),
             'watername' => Yii::t('models', 'Watername'),
-            'unit' => Yii::t('models', 'Unit'),
+            'unitid' => Yii::t('models', 'Unitid'),
             'avalibledquantity' => Yii::t('models', 'Avalibledquantity'),
             'sellprice' => Yii::t('models', 'Sellprice'),
             'factoryid' => Yii::t('models', 'Factoryid'),
@@ -85,6 +86,14 @@ abstract class Water extends \yii\db\ActiveRecord
     public function getPrepareforsell()
     {
         return $this->hasOne(\backend\models\Prepareforsell::className(), ['waterid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnit()
+    {
+        return $this->hasOne(\backend\models\Unit::className(), ['id' => 'unitid']);
     }
 
     /**

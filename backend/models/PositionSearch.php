@@ -5,6 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Position;
+use Yii;
 
 /**
  * PositionSearch represents the model behind the search form of `backend\models\Position`.
@@ -61,8 +62,8 @@ class PositionSearch extends Position
         $query->andFilterWhere([
             'id' => $this->id,
             'salary' => $this->salary,
-            'factoryid' => $this->factoryid,
-            'userid' => $this->userid,
+            'factoryid' => $_SESSION['factoryid'],
+            'userid' => Yii::$app->user->id,
         ]);
 
         $query->andFilterWhere(['like', 'positionname', $this->positionname]);

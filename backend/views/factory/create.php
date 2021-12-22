@@ -13,7 +13,7 @@ $this->title = Yii::t('app', 'Create Factory');
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6 p-2 bg-white rounded  boxhover" style="border:1px solid #dddfe2">
+        <div class="col-md-6 p-2 bg-white rounded boxhover" style="border:1px solid #dddfe2">
         <div class="border-0">
             <p class="col-sm-12 text-right">
                 <a href="#"><img src="<?= Yii::$app->request->baseUrl ?>/icons/substract20.png"></a>

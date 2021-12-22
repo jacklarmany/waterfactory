@@ -14,7 +14,7 @@ use Yii;
  * @property string $time
  * @property integer $waterid
  * @property integer $quantity
- * @property string $unit
+ * @property integer $unitid
  * @property integer $factoryid
  * @property integer $userid
  *
@@ -40,10 +40,9 @@ abstract class Wateradd extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'time', 'waterid', 'quantity', 'unit', 'factoryid', 'userid'], 'required'],
+            [['date', 'time', 'waterid', 'quantity', 'unitid', 'factoryid', 'userid'], 'required'],
             [['date', 'time'], 'safe'],
-            [['waterid', 'quantity', 'factoryid', 'userid'], 'integer'],
-            [['unit'], 'string', 'max' => 10],
+            [['waterid', 'quantity', 'unitid', 'factoryid', 'userid'], 'integer'],
             [['waterid'], 'exist', 'skipOnError' => true, 'targetClass' => \backend\models\Water::className(), 'targetAttribute' => ['waterid' => 'id']]
         ];
     }
@@ -59,7 +58,7 @@ abstract class Wateradd extends \yii\db\ActiveRecord
             'time' => Yii::t('models', 'Time'),
             'waterid' => Yii::t('models', 'Waterid'),
             'quantity' => Yii::t('models', 'Quantity'),
-            'unit' => Yii::t('models', 'Unit'),
+            'unitid' => Yii::t('models', 'Unitid'),
             'factoryid' => Yii::t('models', 'Factoryid'),
             'userid' => Yii::t('models', 'Userid'),
         ];

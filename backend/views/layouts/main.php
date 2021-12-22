@@ -98,7 +98,7 @@ AppAsset::register($this);
                         if(isset($_SESSION['factoryid'])){
                         echo "
                             <li class='nav-item pl-2'>
-                            <a class='nav-link' href='index.php?r=setting'>
+                            <a class='nav-link' href='index.php?r=admin'>
                                 <img src='".Yii::$app->request->baseUrl."/images/admin.png' width='26' class='shadow-sm'>
                             </a>
                         </li>
@@ -108,7 +108,7 @@ AppAsset::register($this);
                         }
                         ?>
                         <li class="nav-item pl-2 pr-3">
-                            <a class="nav-link" href="<?= Url::to('index.php?r=admin') ?>">
+                            <a class="nav-link" href="<?= Url::to('index.php?r=setting') ?>">
                                 <img src="<?= Yii::$app->request->baseUrl ?>/icons/setting25.png" class="shadow-sm">
                             </a>
                         </li>

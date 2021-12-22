@@ -1,12 +1,14 @@
 <?php
 
 namespace backend\controllers;
+
 use backend\models\Water;
 use backend\models\WaterSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * WaterController implements the CRUD actions for Water model.
@@ -91,16 +93,18 @@ class WaterController extends Controller
                 $model = new Water();
                 if ($this->request->isPost) {
                     if ($model->load($this->request->post())) {
-                        $model->userid = Yii::$app->user->id;
-                        $a = 1+1;
-                        $model->image = $model->image ."" .$a ."85620125.jpg";
-                        $model->factoryid = $_SESSION['factoryid'];
 
-                        if($model->save()){
+                        //DO THIS IF SELECTED LOGO
+                        $image = UploadedFile::getInstance($model, 'image');
+                        $imageName = "LGF-" . rand(000, 999) . time() . '.' . $image->getExtension();
+                        $image->saveAs(\Yii::getAlias('@webroot') . '/images/' . $imageName);  // here we need to give path where to upload this function work same as move_upload_file in php
+                        $model->image = $imageName;
+                        $model->userid = Yii::$app->user->id;
+                        $model->factoryid = $_SESSION['factoryid'];
+                        if ($model->save()) {
                             echo Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
-                            return $this->render('index');
-                        }
-                        else{
+                            return $this->redirect(['index']);
+                        } else {
                             echo "fail";
                             die();
                         }

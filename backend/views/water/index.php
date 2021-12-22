@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\Prepareforsell;
+use backend\models\Unit;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use backend\models\Water;
@@ -159,12 +160,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h5 class="card-title"><?= $waterData1['watername']; ?></h5>
                         <table width="100%" border="0">
                             <tr>
-                                <th>ຍັງເຫຼືອ</th>
+                                <th><?= Yii::t('app','Available')?></th>
                                 <td class="text-center"><?= number_format($waterData1['avalibledquantity']) ?></td>
-                                <td class="text-center"><?= $waterData1['unit'] ?></td>
+                                <td class="text-center">
+                                    <?php
+                                        $needunit = Unit::find()->where(['id' => $waterData1['unitid'], 'factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->one();
+                                        foreach ($needunit as $needunit1);
+                                        echo $needunit->unitname;
+                                    ?>
+                                </td>
                             </tr>
                             <tr>
-                                <th>ລາຄາຂາຍ</th>
+                                <th><?= Yii::t('app','Sell-price')?></th>
                                 <td class="text-center"><?= number_format($waterData1['sellprice']) ?></td>
                                 <td class="text-center"><?= Yii::t('app', 'Kip') ?></td>
                             </tr>

@@ -4,6 +4,8 @@ namespace backend\models;
 
 use Yii;
 use \backend\models\base\Water as BaseWater;
+use omgdef\multilingual\MultilingualBehavior;
+use omgdef\multilingual\MultilingualQuery;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -12,14 +14,29 @@ use yii\helpers\ArrayHelper;
 class Water extends BaseWater
 {
 
+
     public function behaviors()
     {
-        return ArrayHelper::merge(
-            parent::behaviors(),
-            [
-                # custom behaviors
-            ]
-        );
+        return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => [
+                    'lo' => 'lao',
+                    'en' => 'English',
+                ],
+                'defaultLanguage' => 'lo',
+                'langForeignKey' => 'waterid',
+                'tableName' => "{{%water_translate}}",
+                'attributes' => [
+                    'watername',
+                ]
+            ],
+        ];
+    }
+
+    public static function find()
+    {
+        return new MultilingualQuery(get_called_class());
     }
 
     public function rules()

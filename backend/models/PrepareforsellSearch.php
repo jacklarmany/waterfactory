@@ -5,6 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Prepareforsell;
+use Yii;
 
 /**
  * PrepareforsellSearch represents the model behind the search form of `backend\models\Prepareforsell`.
@@ -64,8 +65,8 @@ class PrepareforsellSearch extends Prepareforsell
             'sellprice' => $this->sellprice,
             'discount' => $this->discount,
             'customerid' => $this->customerid,
-            'factoryid' => $this->factoryid,
-            'userid' => $this->userid,
+            'factoryid' => $_SESSION['factoryid'],
+            'userid' => Yii::$app->user->id,
         ]);
 
         return $dataProvider;

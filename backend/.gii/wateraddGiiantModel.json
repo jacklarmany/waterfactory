@@ -40,7 +40,7 @@
         "name": "generateHintsFromComments"
     },
     "generatemodelclass": {
-        "value": "1",
+        "value": "0",
         "name": "generateModelClass"
     },
     "generatequery": {

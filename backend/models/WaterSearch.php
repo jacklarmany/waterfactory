@@ -5,6 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Water;
+use Yii;
 
 /**
  * WaterSearch represents the model behind the search form of `backend\models\Water`.
@@ -17,8 +18,8 @@ class WaterSearch extends Water
     public function rules()
     {
         return [
-            [['id', 'avalibledquantity', 'factoryid', 'userid'], 'integer'],
-            [['image', 'watername', 'unit'], 'safe'],
+            [['id', 'unitid', 'avalibledquantity', 'factoryid', 'userid'], 'integer'],
+            [['image', 'watername'], 'safe'],
             [['sellprice'], 'number'],
         ];
     }
@@ -60,15 +61,15 @@ class WaterSearch extends Water
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'unitid' => $this->unitid,
             'avalibledquantity' => $this->avalibledquantity,
             'sellprice' => $this->sellprice,
-            'factoryid' => $this->factoryid,
-            'userid' => $this->userid,
+            'factoryid' => $_SESSION['factoryid'],
+            'userid' => Yii::$app->user->id,
         ]);
 
         $query->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'watername', $this->watername])
-            ->andFilterWhere(['like', 'unit', $this->unit]);
+            ->andFilterWhere(['like', 'watername', $this->watername]);
 
         return $dataProvider;
     }

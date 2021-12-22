@@ -1,5 +1,7 @@
 <?php
 
+use backend\models\Unit;
+use backend\models\Water;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -28,9 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             'date',
-            'waterid',
+            // 'waterid',
+            [
+                'attribute' => 'waterid',
+                'label' => Yii::t('app','Water name'),
+                'value' => function($data){
+                    $unitn = Water::find()->multilingual()->where(['id' => $data->waterid, 'factoryid'=> $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
+                    foreach($unitn as $unitn1)
+                    return $unitn1['watername'];
+                }
+            ],
             'quantity',
-            'unit',
+            [
+                'attribute' => 'unitid',
+                'label' => Yii::t('app','Unit'),
+                'value' => function($data){
+                    $unitn = Unit::find()->multilingual()->where(['id' => $data->unitid, 'factoryid'=> $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
+                    foreach($unitn as $unitn1)
+                    return $unitn1['unitname'];
+                }
+            ],
             //'factoryid',
             //'userid',
 

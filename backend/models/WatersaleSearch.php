@@ -5,6 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Watersale;
+use Yii;
 
 /**
  * WatersaleSearch represents the model behind the search form of `backend\models\Watersale`.
@@ -71,8 +72,8 @@ class WatersaleSearch extends Watersale
             'totalreceiveamount' => $this->totalreceiveamount,
             'customerid' => $this->customerid,
             'stuffasuserid' => $this->stuffasuserid,
-            'factoryid' => $this->factoryid,
-            'userid' => $this->userid,
+            'factoryid' => $_SESSION['factoryid'],
+            'userid' => Yii::$app->user->id,
         ]);
 
         $query->andFilterWhere(['like', 'billno', $this->billno]);

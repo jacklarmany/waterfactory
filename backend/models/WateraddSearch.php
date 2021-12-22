@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Wateradd;
@@ -17,8 +18,8 @@ class WateraddSearch extends Wateradd
     public function rules()
     {
         return [
-            [['id', 'waterid', 'quantity', 'factoryid', 'userid'], 'integer'],
-            [['date', 'time', 'unit'], 'safe'],
+            [['id', 'waterid', 'quantity', 'unitid', 'factoryid', 'userid'], 'integer'],
+            [['date', 'time'], 'safe'],
         ];
     }
 
@@ -63,11 +64,10 @@ class WateraddSearch extends Wateradd
             'time' => $this->time,
             'waterid' => $this->waterid,
             'quantity' => $this->quantity,
-            'factoryid' => $this->factoryid,
-            'userid' => $this->userid,
+            'unitid' => $this->unitid,
+            'factoryid' => $_SESSION['factoryid'],
+            'userid' => Yii::$app->user->id,
         ]);
-
-        $query->andFilterWhere(['like', 'unit', $this->unit]);
 
         return $dataProvider;
     }

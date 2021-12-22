@@ -60,8 +60,8 @@ class StuffasuserSearch extends Stuffasuser
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'stuffid' => $this->stuffid,
-            'factoryid' => $this->factoryid,
+            'stuffid' => $this->stuffid,  
+            'factoryid' => $_SESSION['factoryid'],
         ]);
 
         $query->andFilterWhere(['like', 'uname', $this->uname])

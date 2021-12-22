@@ -44,7 +44,7 @@ use yii\helpers\Url;
                                     <tr>
                                         <th>ຍັງເຫຼືອ</th>
                                         <td class="text-center"><?= number_format($waterData1['avalibledquantity']) ?></td>
-                                        <td class="text-center"><?= $waterData1['unit'] ?></td>
+                                        <td class="text-center">fff<?= $waterData1['unitid'] ?></td>
                                     </tr>
                                     <tr>
                                         <th>ລາຄາຂາຍ</th>

@@ -5,6 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Customer;
+use Yii;
 
 /**
  * CustomerSearch represents the model behind the search form of `backend\models\Customer`.
@@ -63,8 +64,8 @@ class CustomerSearch extends Customer
             'village' => $this->village,
             'district' => $this->district,
             'province' => $this->province,
-            'factoryid' => $this->factoryid,
-            'userid' => $this->userid,
+            'factoryid' => $_SESSION['factoryid'],
+            'userid' => Yii::$app->user->id,
         ]);
 
         $query->andFilterWhere(['like', 'fullname', $this->fullname])

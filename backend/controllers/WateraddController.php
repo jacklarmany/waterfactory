@@ -74,7 +74,7 @@ class WateraddController extends Controller
             if (isset($_SESSION['factoryid'])) {
                 if (isset($waterid)) {
 
-                    $neddUnitWater = Water::find()->where(['id' => $waterid, 'factoryid' => $_SESSION['factoryid']])->all();
+                    $neddUnitWater = Water::find()->where(['id' => $waterid, 'factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->all();
                     foreach ($neddUnitWater as $neddUnitWater1);
 
                     $model = new Wateradd();
@@ -83,19 +83,34 @@ class WateraddController extends Controller
                             $model->date = date("Y-m-d");
                             $model->time = date('H:i:s');
                             $model->waterid = $waterid;
-                            $model->unit =  $neddUnitWater1['unit'];
+                            $model->unitid =  $neddUnitWater1['unitid'];
                             $model->factoryid = $_SESSION['factoryid'];
                             $model->userid = Yii::$app->user->id;
-                            if ($model->save()) {
-                                $qualityadd =  $model->quantity;
-                                $connection = Yii::$app->db;
-                                $command = $connection->createCommand('UPDATE water SET avalibledquantity=avalibledquantity+' . $qualityadd . ' WHERE   id=' . $waterid . ' and factoryid=' . $_SESSION['factoryid']. ' and userid='. Yii::$app->user->id);
-                                $command->execute();
 
-                                echo Yii::$app->session->setFlash('success', Yii::t('app','Quantity has been added'));
-                                return $this->redirect(['/water']);
+                            if ($model->save()) {
+
+                                $oldqty = $neddUnitWater1['avalibledquantity'];
+                                $newqty =  $model->quantity;
+                                $totalqty = $oldqty + $newqty;
+
+                                $factoryid =  $_SESSION['factoryid'];
+                                $userid = Yii::$app->user->id;
+
+                                $connection = Yii::$app->db;
+                                // $update = $connection->createCommand('UPDATE water SET avalibledquantity=avalibledquantity+' . $qualityadd . ' WHERE   id=' . $waterid . ' and factoryid=' . $_SESSION['factoryid']. ' and userid='. Yii::$app->user->id);
+                                // $update = $connection->createCommand('UPDATE water SET avalibledquantity=avalibledquantity+' . $qualityadd . ' WHERE   id=' . $waterid . ' and factoryid=' . $_SESSION['factoryid']. ' and userid='. Yii::$app->user->id);
+                                // $update = $connection->createCommand("UPDATE water SET avalibledquantity=avalibledquantity+$qualityadd WHERE id=$waterid AND factoryid=$factoryid AND userid=$userid");
+                                $update = $connection->createCommand()->update('water', ['avalibledquantity' => $totalqty], ['id' => $waterid, 'factoryid' => $factoryid, 'userid' => $userid])->execute();
+                                if ($update) {
+                                    echo Yii::$app->session->setFlash('success', Yii::t('app', 'Quantity has been added'));
+                                    return $this->redirect(['/water']);
+                                } else {
+                                    echo "can not update water qty";
+                                    die();
+                                }
+                            } else {
+                                return $this->redirect(['index']);
                             }
-                            return $this->redirect(['index']);
                         }
                     } else {
                         $model->loadDefaultValues();

@@ -19,14 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <a href="#"><img src="<?= Yii::$app->request->baseUrl ?>/icons/togle-fullscreen20.png" width="20"></a>
                 <a href="<?= Url::to('index.php?r=water') ?>"><img src="<?= Yii::$app->request->baseUrl ?>/icons/close20.png"></a>
             </p>
-            <h5 class="text-primary"> <?= Html::encode($this->title) ?></h5>
-            <hr>
+            <p class="text-primary h2 text-bold"><?= Html::encode($this->title) ?></p>
             <div class="water-create pl-r3 pr-3">
                 <?= $this->render('_form', [
                     'model' => $model,
                 ]) ?>
             </div>
-
         </div>
         <div class="col-md-3"></div>
     </div>

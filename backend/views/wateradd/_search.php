@@ -13,9 +13,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
@@ -28,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quantity') ?>
 
-    <?php // echo $form->field($model, 'unit') ?>
+    <?php // echo $form->field($model, 'unitid') ?>
 
     <?php // echo $form->field($model, 'factoryid') ?>
 

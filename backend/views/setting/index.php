@@ -10,8 +10,8 @@
                 <?=\yii\helpers\Html::img('@web/icons/animate/setting-post.gif', ['width' => 45, 'class' => 'shadow'])?>
             </div>
             <div class="col-sm-8 text-left">
-                <a href="<?=\yii\helpers\Url::to('index.php?r=post/index')?>">
-                <div class="h5"><?= Yii::t('app', 'Post')?></div>
+                <a href="<?=\yii\helpers\Url::to('index.php?r=position/index')?>">
+                <div class="h5"><?= Yii::t('app', 'Position')?></div>
             </div>
         </div>
     </div>
@@ -19,8 +19,8 @@
         <div class="row">
             <div class="col-sm-4 text-center">1</div>
             <div class="col-sm-8 text-left">
-                <a href="<?=\yii\helpers\Url::to('index.php?r=post/index')?>">
-                <div class="h5 text-shadow"><?= Yii::t('app', 'Post')?></div>
+                <a href="<?=\yii\helpers\Url::to('index.php?r=unit/index')?>">
+                <div class="h5 text-shadow"><?= Yii::t('app', 'Unit')?></div>
             </div>
         </div>
     </div>

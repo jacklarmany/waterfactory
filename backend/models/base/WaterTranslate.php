@@ -37,7 +37,7 @@ abstract class WaterTranslate extends \yii\db\ActiveRecord
     {
         return [
             [['language', 'waterid'], 'integer'],
-            [['watername'], 'string', 'max' => 100],
+            [['watername'], 'string', 'max' => 10],
             [['waterid'], 'exist', 'skipOnError' => true, 'targetClass' => \backend\models\Water::className(), 'targetAttribute' => ['waterid' => 'id']]
         ];
     }
