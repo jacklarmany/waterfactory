@@ -101,6 +101,7 @@ class WaterController extends Controller
                         $model->image = $imageName;
                         $model->userid = Yii::$app->user->id;
                         $model->factoryid = $_SESSION['factoryid'];
+
                         if ($model->save()) {
                             echo Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
                             return $this->redirect(['index']);
@@ -135,10 +136,19 @@ class WaterController extends Controller
         if (Yii::$app->user->id != null) {
             if (isset($_SESSION['factoryid'])) {
                 if (isset($id)) {
-                    $model = $this->findModel($id);
+                    $model = Water::find()->multilingual()->where(['id' => $id])->one();
 
-                    if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
+                    if ($this->request->isPost && $model->load($this->request->post())) {
+                        //DO THIS IF SELECTED LOGO
+                        $image = UploadedFile::getInstance($model, 'image');
+                        $imageName = "LGF-" . rand(000, 999) . time() . '.' . $image->getExtension();
+                        $image->saveAs(\Yii::getAlias('@webroot') . '/images/' . $imageName);  // here we need to give path where to upload this function work same as move_upload_file in php
+                        $model->image = $imageName;
+                        if ($model->save()) {
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        } else {
+                            echo "Can not update";
+                        }
                     }
 
                     return $this->render('update', [

@@ -21,7 +21,8 @@
         "lajax/yii2-translate-manager": "^1.8",
         "kartik-v/yii2-widget-select2": "dev-master",
         "schmunk42/yii2-giiant": "@stable",
-        "omgdef/yii2-multilingual-behavior": "~2.0"
+        "omgdef/yii2-multilingual-behavior": "~2.0",
+        "kartik-v/yii2-detail-view": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -40,10 +41,8 @@
             "enabled": false
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    "repositories": [{
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+    }]
 }

@@ -44,10 +44,16 @@ class PrepareforsellController extends Controller
         $searchModel = new PrepareforsellSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $count = $dataProvider->getCount();
+        if($count<1){
+            return $this->redirect(['/water/index']);
+        }
+        else{
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -202,9 +208,10 @@ class PrepareforsellController extends Controller
 
             $t = time();
             $date = "2021-12-30";
-            $billno = Yii::$app->user->id . "" . $_SESSION['factoryid'] . "-".$t;
+            $billno = Yii::$app->user->id . "" . $_SESSION['factoryid'] . "-" . $t;
             $userid = Yii::$app->user->id;
             $factoryid = $_SESSION['factoryid'];
+
 
 
             foreach ($result as $commands) {
@@ -214,23 +221,29 @@ class PrepareforsellController extends Controller
                 $amount = $quantity * $sellprice;
                 $discount = $commands['discount'];
                 $amountdisc = $commands['amountdiscount'];
-                $customer = $commands['customerid'];
+                $totalreceiveamount = $amount - $amount;
+                $customerid = $commands['customerid'];
 
-                ///ຍັງບໍ່ແລ້ວ
-                ///INSERT DATA OBJECT TO MYSQL
-                $command = Yii::$app->db;
-                $sql = $command->createCommand("INSERT INTO watersale(billno,date,waterid,quantity,sellprice,amount,factoryid,userid)VALUES('$billno','$date','$waterid','$quantity','$sellprice','$amount','$factoryid','$userid')");
-                $sql->query();
+                /// ຕ້ອງການຈໍານວນຕຸກນໍ້າທີ່ຍັງເຫຼື້ອໃນຊ່າງ
+                $waterqty = Water::find()->where(['id' => $waterid, 'factoryid' => $factoryid, 'userid' => $userid])->all();
+                foreach ($waterqty as $waterqty1) {
+                    $availibleqty = $waterqty1['avalibledquantity'] - $quantity;
 
-                if($sql->query()){
-                $this->findModel(['factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->delete();
-                echo "print bill completed";
-                
+                    $update = Yii::$app->db->createCommand()->update('water', ['avalibledquantity' => $availibleqty], ['id' => $waterid, 'factoryid' => $factoryid, 'userid' => $userid])->execute();
+                    if ($update) {
+                        $this->findModel(['factoryid' => $_SESSION['factoryid'], 'userid' => Yii::$app->user->id])->delete();
+                        echo "print bill completed";
+                    } else {
+                        echo "can not update";
+                    }
                 }
+                
+                ///INSERT DATA OBJECT TO WATERSALE
+                $command = Yii::$app->db;
+                $sql = $command->createCommand("INSERT INTO watersale(billno,date,waterid,quantity,sellprice,amount,discount,amountdiscount,customerid,factoryid,userid)VALUES('$billno','$date','$waterid','$quantity','$sellprice','$amount','$discount','$amountdisc','$totalreceiveamount','$factoryid','$userid')");
+                $sql->query();
+     
             }
-
         }
-
     }
-    
 }

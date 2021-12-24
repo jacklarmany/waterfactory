@@ -10,16 +10,18 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Watersales');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="watersale-index">
+<div class="watersale-index bg-white p-2">
 
     <h1><?php Html::encode($this->title) ?></h1>
 
     <p>
-        <?php //Html::a(Yii::t('app', 'Create Watersale'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php //Html::a(Yii::t('app', 'Create Watersale'), ['create'], ['class' => 'btn btn-success']) 
+        ?>
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             // 'date',
             // 'time',
+            'billno',
             'waterid',
             'quantity',
             'sellprice',
@@ -38,12 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'amountdiscount',
             //'totalreceiveamount',
             //'customerid',
-            //'billno',
             //'stuffasuserid',
             //'factoryid',
             //'userid',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class' => 'text-right pt-1 pb-1'],
+                'headerOptions' => ['style' => 'border-top:3px solid #ccc'],
+            ],
         ],
     ]); ?>
 

@@ -12,9 +12,9 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Wateradds');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="wateradd-index">
+<div class="wateradd-index bg-white p-2">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="h4"><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?php //echo Html::a(Yii::t('app', 'Create Wateradd'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -56,6 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // ['class' => 'yii\grid\ActionColumn'],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class' => 'text-right pt-1 pb-1'],
+                'headerOptions' => ['style' => 'border-top:3px solid #ccc'],
                 'template' => '{view} {delete}',
                 'buttons' => [
                     'view' => function ($url, $model) {

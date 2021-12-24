@@ -99,7 +99,7 @@ AppAsset::register($this);
                         echo "
                             <li class='nav-item pl-2'>
                             <a class='nav-link' href='index.php?r=admin'>
-                                <img src='".Yii::$app->request->baseUrl."/images/admin.png' width='26' class='shadow-sm'>
+                                <img src='".Yii::$app->request->baseUrl."/icons/user-25.png' class='shadow-sm'>
                             </a>
                         </li>
                         ";

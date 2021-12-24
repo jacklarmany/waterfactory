@@ -1,8 +1,12 @@
 <?php
 
+use backend\models\District;
+use backend\models\Province;
+use backend\models\Village;
+use kartik\select2\Select2;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -16,8 +20,7 @@ use yii\widgets\Pjax;
         <div class=" bg-white p-5">
             <?php $form = ActiveForm::begin(); ?>
             <div class="row">
-                <div class="col-md-6"> <?= $form->field($model, 'fname')->textInput(['maxlength' => true]) ?></div>
-                <div class="col-md-6"><?= $form->field($model, 'lname')->textInput(['maxlength' => true]) ?></div>
+                <div class="col-md-12"> <?= $form->field($model, 'fullname')->textInput(['maxlength' => true]) ?></div>
             </div>
             <div class="row">
                 <div class="col-md-12"><?= $form->field($model, 'dob')->textInput(['type' => 'date']) ?></div>
@@ -32,13 +35,43 @@ use yii\widgets\Pjax;
                 <div class="col-md-6"> <?= $form->field($model, 'cardid')->textInput(['maxlength' => true]) ?></div>
             </div>
             <div class="row">
-                <div class="col-md-12"> <?= $form->field($model, 'village')->dropDownList(['male' => Yii::t('app', 'Male'), 'female' => Yii::t('app', 'Female')]) ?></div>
+                <div class="col-md-12">
+                    <?php
+                    echo $form->field($model, 'province')->widget(Select2::classname(), [
+                        'data' => \yii\helpers\ArrayHelper::map(Province::find()->all(), 'id', ['provincename']),
+                        'options' => ['placeholder' => Yii::t('app', 'Select Province ...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(Yii::t('app', 'Select Province ...'));
+                    ?>
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-12"> <?= $form->field($model, 'district')->dropDownList(['male' => Yii::t('app', 'Male'), 'female' => Yii::t('app', 'Female')]) ?></div>
+                <div class="col-md-12">
+                    <?php
+                    echo $form->field($model, 'district')->widget(Select2::classname(), [
+                        'data' => \yii\helpers\ArrayHelper::map(District::find()->all(), 'id', ['districtname']),
+                        'options' => ['placeholder' => Yii::t('app', 'Select District ...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(Yii::t('app', 'Select District ...'));
+                    ?>
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-12"> <?= $form->field($model, 'province')->dropDownList(['promt' => Yii::t('app', 'Select option'), 'male' => Yii::t('app', 'Male'), 'female' => Yii::t('app', 'Female')]) ?></div>
+                <div class="col-md-12">
+                    <?php
+                    echo $form->field($model, 'village')->widget(Select2::classname(), [
+                        'data' => \yii\helpers\ArrayHelper::map(Village::find()->all(), 'id', ['villagename']),
+                        'options' => ['placeholder' => Yii::t('app', 'Select Village ...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(Yii::t('app', 'Select Village ...'));
+                    ?>
+                </div>
             </div>
             <div class="form-group text-right">
                 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -56,7 +89,6 @@ use yii\widgets\Pjax;
 
 
 <?php
-
 // $script = <<< JS
 //     $('form#{$model->formName()}').on('beforSubmit', function(e){
 //         var \$form = $(this);

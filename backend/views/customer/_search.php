@@ -18,33 +18,42 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php // $form->field($model, 'id') 
+    ?>
 
-    <?= $form->field($model, 'fullname') ?>
+    <?php echo $form->field($model, 'fullname')->textInput(['placeholder' => Yii::t('app', 'Search ...'), 'class' => 'shadow-sm form-control'])->label(false) ?>
 
-    <?= $form->field($model, 'dob') ?>
+    <?php // $form->field($model, 'dob') 
+    ?>
 
-    <?= $form->field($model, 'gender') ?>
+    <?php // $form->field($model, 'gender') 
+    ?>
 
-    <?= $form->field($model, 'cardid') ?>
+    <?php // $form->field($model, 'cardid') 
+    ?>
 
-    <?php // echo $form->field($model, 'tel') ?>
+    <?php // echo $form->field($model, 'tel') 
+    ?>
 
-    <?php // echo $form->field($model, 'village') ?>
+    <?php // echo $form->field($model, 'village') 
+    ?>
 
-    <?php // echo $form->field($model, 'district') ?>
+    <?php // echo $form->field($model, 'district') 
+    ?>
 
-    <?php // echo $form->field($model, 'province') ?>
+    <?php // echo $form->field($model, 'province') 
+    ?>
 
-    <?php // echo $form->field($model, 'factoryid') ?>
+    <?php // echo $form->field($model, 'factoryid') 
+    ?>
 
-    <?php // echo $form->field($model, 'userid') ?>
+    <?php // echo $form->field($model, 'userid') 
+    ?>
 
-    <div class="form-group">
+    <div class="form-group" style="display:none">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>
